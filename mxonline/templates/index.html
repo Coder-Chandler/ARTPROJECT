@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% block title %}CTMart - 年轻人的艺术平台{% endblock %}
+{% load staticfiles %}
+{% block custom_bread %}
+{% endblock %}
+
+{% block content %}
+<!--主页面主体-->
+<div class="history-container">
+  <div class="recommend max_width_1000">
+    <ul class="artist auto-column a_img_border" data-width="320">
+    {% for course in courses %}
+      <li>
+        <div class="artist_box">
+          <div class="img">
+            <a title="{{ course.course_org.name }}" href="{% url 'course:course_detail' course.id %}" style="background-image:url({{ MEDIA_URL }}{{ course.image }});background-size:cover;"></a>
+          </div>
+          <h3>
+            <a class="t_links_black" href="">
+              <p>{{ course.course_org.name }}</p>
+            </a>
+            <a href="javascript:;" data-follow="888" data-status="0" class="attract btn do-follow" src="/login">
+              <i>+</i>{% if has_fav_course %}已关注{% else %}关注{% endif %}</a>
+          </h3>
+          <p class="text">发表过
+            <em>{{ course.course_org.courses_nums }}</em>件作品</p>
+          <p class="text">被
+            <em class="num_followed">{{ course.fav_nums }}</em>人关注</p></div>
+      </li>
+    {% endfor %}
+    </ul>
+  </div>
+  <div class="next_one">
+    <div class="next_icon">
+      <a href="{% url 'register' %}">
+        <p>WHO IS THE NEXT ?</p>
+      </a>
+    </div>
+    <h3>下一个也许是你</h3>
+    <p class="KAITI">欢迎加入大禹艺术</p></div>
+</div>
+
+{% endblock %}
+{% block custom_js %}
+    <script type="text/javascript" src="{% static 'js/index.js' %}"></script>
+    <script type="text/javascript">
+        //收藏分享
+        function add_fav(current_elem, fav_id, fav_type){
+            $.ajax({
+                cache: false,
+                type: "POST",
+                url:"{% url 'org:add_fav' %}",
+                data:{'fav_id':fav_id, 'fav_type':fav_type},
+                async: true,
+                beforeSend:function(xhr, settings){
+                    xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+                },
+                success: function(data) {
+                    if(data.status == 'fail'){
+                        if(data.msg == '用户未登录'){
+                            window.location.href="{% url 'login' %}";
+                        }else{
+                            current_elem.text(data.msg)
+                        }
+
+                    }else if(data.status == 'success'){
+                        current_elem.text(data.msg)
+                    }
+                },
+            });
+        }
+
+    $('#jsLeftBtn').on('click', function(){
+        add_fav($(this), {{ course.id }}, 1);
+    });
+
+    $('#jsRightBtn').on('click', function(){
+        add_fav($(this), {{ course.course_org.id }}, 2);
+    });
+
+    </script>
+{% endblock %}
+
+

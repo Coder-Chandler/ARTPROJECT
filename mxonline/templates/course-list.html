@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block title %}CTMart - 年轻人的艺术平台{% endblock %}
+{% load staticfiles %}
+{% block custom_bread %}
+{% endblock %}
+
+{% block custom_js %}
+    <script type="text/javascript" src="{% static 'js/index.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+<!--主页面主体-->
+<div class="history-container">
+  <div class="carefully_feed max_width_1250">
+    <ul class="carefully_feed works">
+        {% for course in all_course.object_list %}
+            <li>
+                <div class="artist_box item">
+                  <div class="item-info">
+                    <div class="ch-info-back-warp item-info-back">
+                      <div class="ch-info-back">
+                        <a href="{% url 'course:course_detail' course.id %}" target="_blank" class="btn-url"></a>
+                        <h3>
+                          <a href="{% url 'course:course_detail' course.id %}" target="_blank" class="btn text_underline">{{ course.name }}</a></h3>
+                        <p>
+                          <a href="{% url 'org:org_home' course.id %}" class="btn text_underline">{{ course.course_org.name }}</a></p>
+                        <a href="{% url 'course:course_detail' course.id %}" target="_blank" class="btn text_underline">查看课程</a></div>
+                    </div>
+                    <div class="img item-info-front">
+                      <a href="{% url 'course:course_detail' course.id %}" target="_blank" title="{{ course.name }}" style="background-color:white">
+                        <img alt="" data-src="" src="{{ MEDIA_URL }}{{ course.image }}"></a>
+                    </div>
+                  </div>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+  </div>
+</div>
+{% endblock %}
+
+

@@ -1,0 +1,103 @@
+.fixed.box-location {
+    max-width: 780px;
+    padding: 0;
+    margin: 0 auto;
+    position: relative;
+    min-height: 640px;
+}.language_warp {
+    height: 468px;
+    position: absolute;
+    width: 100% ;
+    padding-top: 100px
+}.language {
+    margin: 0 auto;
+    text-align: center;
+    min-width: 320px;
+}.language h1 {
+    color: #2c2b2a;
+    font-size: 48px;
+    font-weight: normal;
+    padding: 60px 0
+}.cutBtn {
+    width: 300px;
+    height: 69px;
+    margin: 0 auto 30px auto
+}.btn {
+    border: medium none;
+    border: none;
+    box-shadow: none;
+    text-shadow: none;
+    display: inline-block;
+    text-decoration: none;
+    transition: border 0.1s linear 0s,
+    color 0.1s linear 0s,
+    background-color 0.1s linear 0s;
+}.cutBtn.btn {
+    width: 300px;
+    height: 66px;
+    border: 1px solid#E8E8E8;
+    line-height: 66px;
+    color: #2C2B29;
+    text-align: center;
+    font-size: 30px;
+    position: relative
+}
+
+.cutBtn.btn: hover em {
+    visibility: visible;
+}.cutBtn.btn em {
+    width: 32px;
+    height: 24px;
+    position: absolute;
+    display: block;
+    top: 22px;
+    right: 20px;
+    background: url(../images/Icon / language_Check.png ? v = 1467720348) 0 no-repeat;
+    visibility: hidden
+}
+
+.language_warp.on.btn {
+    width: 300px;
+    height: 66px;
+    border: 1px solid#2D2B2C;
+    line-height: 66px;
+    color: #fff;
+    text-align: center;
+    font-size: 30px;
+    position: relative;
+    background: #2D2B2C
+}
+
+.language_warp.on.btn: hover em {
+    visibility: hidden;
+}.dz-close-a {
+    width: 64px;
+    height: 64px;
+    display: inline-block;
+    z-index: 1002;
+    background: url(../images/icons.png ? v = 1467720348)-10px-60px no-repeat;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+}@media(-webkit-min-device-pixel-ratio: 1.25),
+(min-resolution: 160dpi) {.cutBtn.btn em {
+        background: url(../images/Icon / language_Check_2x.png ? v = 1467720348) 0 no-repeat;
+        background-size: 32px 24px;
+    }.dz-close-a {
+        width: 64px;
+        height: 64px;
+        display: inline-block;
+        z-index: 1002;
+        background: url(../images/icons_2x.png ? v = 1467720348)-10px-60px no-repeat;
+        position: absolute;
+        right: 20px;
+        top: 20px;
+        background-size: 1266px 587px
+    }.dz-close-a: hover {
+        background: url(../images/icons_2x.png ? v = 1467720348)-10px-134px no-repeat;
+        background-size: 1266px 587px
+    }
+
+}.dz-close-a: hover {
+    background-position: -10px -134px;
+}

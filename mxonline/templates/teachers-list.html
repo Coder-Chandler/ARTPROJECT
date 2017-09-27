@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block title %}课程讲师-慕学网{% endblock %}
+{% load staticfiles %}
+    {% block custom_bread %}
+    <section>
+        <div class="wp">
+            <ul  class="crumbs">
+                <li><a href="{% url 'index' %}">首页</a>></li>
+                <Li>课程讲师</Li>
+            </ul>
+        </div>
+    </section>
+    {% endblock %}
+
+{% block content %}
+    <div class="history-container">
+  <div>
+    <div class="search_work_box max_width_1000 padding_t_30 Logged">
+      <ul class="tale_feed works" style="margin:0 auto;">
+          {% for teacher in all_teachers.object_list %}
+            <li class="clearfix">
+          <div class="works">
+            <div class="writing_box">
+              <div class="writing_img">
+                <a href="/article/1OYB" target="_blank" style="background-color:#f2f2f0" title="《低头的温柔》的製作过程">
+                  <img alt="《低头的温柔》的製作过程-余志雯作品" data-src="http://img9.yingworks.com//1SvN/lpbtBakzZbGfM5lLmMO4u2VYpcf7.jpg!c604" src="http://img9.yingworks.com//1SvN/lpbtBakzZbGfM5lLmMO4u2VYpcf7.jpg!c604" style="display: inline-block;"></a>
+              </div>
+              <div class="writing_text">
+                <h3>
+                  <a href="/article/1OYB" class="btn t_links_black">《低头的温柔》的製作过程</a></h3>
+                <p>名稱: 《低頭的溫柔》媒介: 水墨礦物顏料設色紙本尺寸: 36x25 cm年份: 2015創作說明: 寫生大學朋友陳夢榕同學，她是筆者非常要好的大學朋友！陳同學心地善良，溫柔，常常樂於幫助身邊人，全...[
+                  <a href="/article/1OYB" class="t_links_blue">阅读文章</a>]</p></div>
+            </div>
+            <div class="text">
+              <p class="price p_t_10">
+                <span class="by_icon"></span>
+                <a href="/chiman" class="t_links_blue">余志雯</a></p>
+              <a href="javascript:;" data-num-liked="0" data-row-id="434285" class="btn heart_a row-like" data-is-like="0">
+                <span></span>
+                <i>赞一下</i>
+              </a>
+            </div>
+          </div>
+        </li>
+          {% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>
+{% endblock %}
+

@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html>
+{% load staticfiles %}
+  <head>
+    <meta charset="utf-8">
+    <title>{{ course_org.name }}的个人主页 | Artand - 最专业的当代艺术社交平台</title>
+    <meta name="keywords" content="海鸥,海鸥的个人主页,海鸥的简介,海鸥的作品,海鸥的资讯,海鸥的展览,海鸥的作品价格,当代艺术,artand,艺术社交">
+    <meta name="description" content="海鸥的个人主页，包括海鸥的简介、海鸥的作品欣赏、海鸥的作品价格、海鸥参加的展览，海鸥与艺术爱好者的评论互动等信息，是专业的帮助您了解海鸥个人信息和作品的当代艺术社交平台。">
+    <link rel="stylesheet" href="//static.artand.cn/style/common/language.css?version=399778">
+    <link rel="stylesheet" href="//js.artand.cn/concat/?f=common%2Fcommon.css%2Ccommon%2FfeedHome.css%2Ccommon%2Ffeed.css%2Cprofile%2Fprofile.css%2Ccommon%2Flayer.css%2Clogin%2Flogin.css%2Ccommon%2Fbutton.css%2Cwork%2Fissue_works.css%2Ccommon%2Fimg_handle.css%2Carticle%2Farticle.css%2Cum%2Fthemes%2Fdefault%2Fcss%2Fumeditor.css%2Cplugin%2Fjquery.drag-n-crop.css%2Cum%2Fthemes%2Fdefault%2Fcss%2Fumeditor_img.css%2Canimation%2Fanimation.css%2Ccommon%2Fspread_out.css%2Cplugin%2Fjquery.atwho.css%2Ccommon%2Fmore_img.css%2Ccommon%2Fphiz.css%2Capprove%2FExplanation.css%2Capprove%2Fapprove.css%2Cweb%2FUpload%2Findex.css%2Cnews%2Fprivate_letter.css%2Cpiece%2Flayer.css%2Ccommon%2Fadmire.css%2Cfonts%2F9.9%2Fdemo.css%2Cfonts%2F9.9%2Ficonfont.css%2Ccommon%2FPop-up.css%2Clang%2Fzh-cn%2Fcommon.css&amp;b=style&amp;v=399778">
+    <link rel="dns-prefetch" href="//static.artandus.com">
+    <link rel="dns-prefetch" href="//img5.artandus.com">
+    <link rel="dns-prefetch" href="//img6.artandus.com">
+    <link rel="dns-prefetch" href="//img7.artandus.com">
+    <link rel="dns-prefetch" href="//img8.artandus.com">
+    <link rel="dns-prefetch" href="//news.artandus.com">
+      {% block custom_css %}{% endblock %}
+    <script src="//hm.baidu.com/hm.js?40e8d3233d2e7f2696cdcce5c70c60c5"></script>
+    <script type="text/javascript" async="">var isIE = navigator.userAgent.toLowerCase().search(/(msie\s|trident.*rv:)([\w.]+)/) != -1;
+        if (isIE) {
+            document.write("<link rel='stylesheet' href='//static.artand.cn/style/ie_hack/ie_hack.css?v=399778'\/>");
+        }
+        if (typeof JSON == "undefined") {
+            document.write('<script type="text/javascript" src="http://lib.sinaapp.com/js/json2/json2.js"><\/scr' + 'ipt>');
+        }</script>
+    <!--[if lt IE 9]>
+        <link rel='stylesheet' href='//static.artand.cn/style/ie_hack/ie_hack_8.css?v=399778' />
+    <![endif]-->
+    <meta name="format-detection" content="telephone=no">
+    <link rel="shortcut icon" href="//head.artand.cn/22529/46.ico">
+    <script type="text/javascript">$CONF = {
+            "js_version": "949655",
+            "css_version": "399778",
+            "js_host": "\/\/static.artand.cn",
+            "css_host": "\/\/static.artand.cn",
+            "lang": "zh-cn",
+            "is_login": false,
+            "country": 1,
+            "module_name": "haiou",
+            "domain": "haiou",
+            "disMsg": 1,
+            "head": "\/\/head.artand.cn\/22529\/46\/64",
+            "type": "profile",
+            "oid": "22529",
+            "is_owner": false,
+            "is_verfiy": "1",
+            "callback": "\/haiou",
+            "show_regist": 1,
+            "last_id": "448775",
+            "page_id": "home",
+            "about_tip": false
+        };</script>
+    <link href="http://rss.artandus.com/haiou/rss" rel="alternate" type="application/rss+xml" title="海鸥的最新作品">
+    <script type="text/tmpl" id="message_tmpl">< form class = "msg_box" > <div class = "msg_top_black" > </div><div class="msg_close"><a href="javascript:;" class="close btn" title="关闭"></a > </div><div class="msg_content"><h2 class="max-width300 msg_h2 write_h2"><span class="w_icon"></span > {@
+            if _.title
+        }
+        $ {
+            _.title
+        } {@
+            else
+        }写信 {@ /
+            if
+        } < /h2><div class="max-width300 letter_warp {@if html}letter_warp_a{@/
+        if
+    }
+    ">
+	        {@if html}$${html}{@/if}
+			<div class="text_forms margin_bottom_10 "><span class="create - option {@
+        if uid
+    }
+    hide {@ /
+        if
+    }
+    ">收信人，输入姓名快速检索</span>
+                {@if uid}
+				<span class="create_alternative "><input type="hidden " autocomplete="off " name="to_uid " value="$ {
+        uid
+    }
+    "><span class="token ">
+						${uname}
+					<a class="token - close " href="javascript: ;
+    ">×</a></span></span>
+				{@/if}
+	            <input type="text " class="input_text border_green uname placeholder width_96 " autocomplete="off "></div>
+			{@if type}
+				<input type="hidden " name="type " value="$ {
+        type
+    }
+    ">			{@/if}
+	        <div class="text_forms margin_bottom_10 "><span class="create - option_tex {@
+        if msg
+    }
+    hide {@ /
+        if
+    }
+    ">私信内容</span><textarea tabindex="0 " name="message " class="input_textarea placeholder width_97 ">{@if msg}${msg}{@/if}</textarea></div><div class="phiz on "><a href="javascript: ;
+    " class="btn phiz_btn " title="表情"></a><a class="btn phiz_btn_a " href="javascript: ;
+    "><input type="file "  accept="image
+    /*" name="file" id="message_upload"></a><span class="img_name_span clearfix"><em class="name"></em><a title="删除" class="btn pic_delete" href="javascript:;">删除</a></span><a href="javascript:;" target="_blank" class="btn chat_history" style="display:none;">聊天记录</a></div><div class="text_forms margin_bottom_10"><a href="javascript:;" class="btn btn_small btn_ash reset" title="取消">取消</a><a href="javascript:;" class="btn btn_small btn_gray margin_left_10 submit" title="发送">发送</a></div></div></div></form>*/
+    </script>
+    <script type="text/tmpl" id="qrcode_tmpl">< div class = "msg_box weixin" > <div class = "msg_close" > <a href = "javascript:;"class = "close btn"title = "关闭" > </a></div > <div class = "msg_content" > <div class = "msg_two_dimensional" > {@
+            if is_wechat
+        } < p class = "padding_bottom_10" > 用微信“ < span class = "red" > 扫一扫 < /span>”并分享到“<span class="red">朋友圈</span > ” < br > 请好朋友们来帮忙点赞！ < /p>
+				{@/
+        if
+    } < div class = "img"style = "background-image:url(http://artand.cn/qr/large?url=%2Fhaiou)" ></div>
+				{@if !is_wechat}
+                <p>用微信“扫一扫”在手机中打开浏览<br/ > 点击手机屏幕右上角还能分享到朋友圈 < /p>					{@if url}
+						<div class="Qr_code"><a class="btn" href="${url}" target="_blank">下载更多尺寸</a ></div>
+					{@/
+    if
+} {@ /
+    if
+} < /div></div > </div>/</script>
+  {% block custom_js %}{% endblock %}
+    <style type="text/css">.fixed .select{ border:none; }</style>
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image:src" content="http://img10.artand.cn/5Rn/FqcO7V_z3W4nrvyri89zNxRyvy-h.jpeg!n1200">
+    <meta name="twitter:domain" content="artand.cn">
+    <meta name="twitter:app:url:ipad" content="http://artand.cn/haiou">
+    <meta name="twitter:app:url:iphone" content="http://artand.cn/haiou">
+    <meta name="twitter:title" content="海鸥的ARTAND主页">
+    <meta name="twitter:url" content="http://artand.cn/haiou">
+    <meta name="twitter:site" content="TheArtand">
+    <meta name="twitter:description" content="在Artand.cn，你可以找到最具潜力的青年艺术家，和最有收藏价值的当代艺术作品。我们的目标是将专业的艺术品和当代艺术文化推向大众。"></head>
+<body class="st-effect-2" style="">
+<div class="st-container Height_100">
+    <div class="surface_warp">
+        <link rel="stylesheet" href="//js.artand.cn/concat/?f=common%2Ffonts.css%2Cfonts%2Fstylesheet.css%2Clang%2Fzh-cn%2Fcommon.css&amp;b=style&amp;v=399778">
+        <div class="st-pusher Height_100">
+            <div class="st-content Height_100">
+                <div class="surface">
+                    <div class="screen-content surface-content">
+                        <div class="surface_div_top">
+                            <div class="person_box" style="transform: translate3d(0px, 33.875px, 0px); opacity: 0.375576;">
+                                <h2 class="css">{{ course_org.name }}</h2>
+                                <p>
+                                    <a class="btn t_links_ash champagne_limousinesregular" href="{% url 'index' %} ">DAYUart</a></p>
+                                <a class="downwards" href="#home"></a>
+                            </div>
+                            <div class="sns_box">
+                                <a href="javascript:;" data-url="http://service.weibo.com/share/share.php?title=%E6%B5%B7%E9%B8%A5%E7%9A%84ARTAND%E4%B8%BB%E9%A1%B5%EF%BC%88%E5%88%86%E4%BA%AB%E8%87%AA%40ARTANDUS%EF%BC%89&amp;url=http%3A%2F%2Fartand.cn%2Fhaiou&amp;appkey=3979982469&amp;source=bookmark&amp;pic=http%3A%2F%2Fstatic.artand.cn%2Fscreen%2F22529%2Fuser.jpg%3Fv%3D090919&amp;searchPic=false" class="sns_btn icon_a"></a>
+                                <a href="javascript:;" class="sns_btn icon_b share-weixin"></a>
+                                <a href="javascript:;" data-url="https://twitter.com/intent/tweet?text=%E6%B5%B7%E9%B8%A5%E7%9A%84ARTAND%E4%B8%BB%E9%A1%B5%EF%BC%88%E5%88%86%E4%BA%AB%E8%87%AA%40Artandcn%EF%BC%89&amp;url=http%3A%2F%2Fartand.cn%2Fhaiou" class="sns_btn icon_d"></a>
+                                <a href="javascript:;" data-url="https://www.facebook.com/dialog/feed?app_id=803537339667721&amp;link=http%3A%2F%2Fartand.cn%2Fhaiou&amp;description=%E5%9C%A8Artand.cn%EF%BC%8C%E4%BD%A0%E5%8F%AF%E4%BB%A5%E6%89%BE%E5%88%B0%E6%9C%80%E5%85%B7%E6%BD%9C%E5%8A%9B%E7%9A%84%E9%9D%92%E5%B9%B4%E8%89%BA%E6%9C%AF%E5%AE%B6%EF%BC%8C%E5%92%8C%E6%9C%80%E6%9C%89%E6%94%B6%E8%97%8F%E4%BB%B7%E5%80%BC%E7%9A%84%E5%BD%93%E4%BB%A3%E8%89%BA%E6%9C%AF%E4%BD%9C%E5%93%81%E3%80%82%E6%88%91%E4%BB%AC%E7%9A%84%E7%9B%AE%E6%A0%87%E6%98%AF%E5%B0%86%E4%B8%93%E4%B8%9A%E7%9A%84%E8%89%BA%E6%9C%AF%E5%93%81%E5%92%8C%E5%BD%93%E4%BB%A3%E8%89%BA%E6%9C%AF%E6%96%87%E5%8C%96%E6%8E%A8%E5%90%91%E5%A4%A7%E4%BC%97%E3%80%82&amp;name=%E6%B5%B7%E9%B8%A5%E7%9A%84ARTAND%E4%B8%BB%E9%A1%B5&amp;picture=http%3A%2F%2Fimg10.artand.cn%2F5Rn%2FFqcO7V_z3W4nrvyri89zNxRyvy-h.jpeg%21n1200&amp;redirect_uri=http%3A%2F%2Fartand.cn%2Fpublic%2Fclose&amp;caption=&amp;display=popup" class="sns_btn icon_e"></a>
+                                <a href="javascript:;" data-url="http://www.pinterest.com/pin/create/bookmarklet/?url=http%3A%2F%2Fartand.cn%2Fhaiou&amp;media=http%3A%2F%2Fstatic.artand.cn%2Fscreen%2F22529%2Fuser.jpg%3Fv%3D090919&amp;description=%E6%B5%B7%E9%B8%A5%E7%9A%84ARTAND%E4%B8%BB%E9%A1%B5" class="sns_btn icon_f"></a>
+                            </div>
+                            <div class="profile_btn_r"></div>
+                        </div>
+                        <div class="inner"></div>
+                        <div class="image-fill layout-fill promo-fill" data-src="{{ MEDIA_URL }}{{ org.home_img}}" id="cover" style="background-image:url({{ MEDIA_URL }}{{ course_org.home_img }});"></div>
+                        <div class="image-fill layout-fill promo-fill blur" style="opacity: 0.468318;"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="site-nav-overlay"></div>
+        </div>
+    </div>
+</div>
+    <div class="st-container Height_100 hide">
+        <div class="surface_warp"></div>
+    </div>
+    <div class="st-container" id="st_container">
+        <div class="site-nav-logo">
+            <div class="st-pusher">
+                <span class="icons-logo-aa" id="site_logo"></span>
+            </div>
+        </div>
+        <div class="st-menu st-effect-2">
+            <div class="site-nav">
+                <div class="site-nav-scrollable-container">
+                    <ul class="site-nav-list">
+                    {% if not request.user.is_authenticated %}
+                    <li class="site-nav-list-item on">
+                        <a href="{% url 'index' %}" class="site-nav-list-item-btn home">
+                            <span class="icons"></span>首页</a>
+                    </li>
+                    <li class="site-nav-list-item">
+                        <a href="{% url 'register' %}" class="site-nav-list-item-btn reg">
+                            <span class="icons"></span>注册</a>
+                    </li>
+                    <li class="site-nav-list-item">
+                        <a href="{% url 'login' %}" class="site-nav-list-item-btn member">
+                            <span class="icons"></span>登录</a>
+                    </li>
+                    {% else %}
+                    <li class="site-nav-list-item on">
+                        <a href="{% url 'index' %}" class="site-nav-list-item-btn home">
+                            <span class="icons"></span>首页</a>
+                    </li>
+                    <li class="site-nav-list-item">
+                        <a href="{% url 'users:user_info' %}" class="site-nav-list-item-btn">
+                            <span class="icons icons-logo-head">
+                                <img src="{{ MEDIA_URL }}{{ request.user.image }}">
+                            </span>{{ user.username }}
+                        </a>
+                    </li>
+                    <li class="site-nav-list-item">
+                        <a href="{% url 'index' %}" class="site-nav-list-item-btn home">
+                            <span class="icons"></span>我的艺术课</a>
+                    </li>
+                    <li class="site-nav-list-item">
+                        <a href="{% url 'index' %}" class="site-nav-list-item-btn home">
+                            <span class="icons"></span>我关注的艺术老师</a>
+                    </li>
+                    <li class="site-nav-list-item">
+                        <a href="{% url 'index' %}" class="site-nav-list-item-btn home">
+                            <span class="icons"></span>我的消息</a>
+                    </li>
+                    <li class="site-nav-list-item">
+                        <a href="{% url 'logout' %}" class="site-nav-list-item-btn member ">
+                            <span class="icons"></span>退出登录</a>
+                    </li>
+                    {% endif %}
+                    <!--后期再完善-->
+                    <!--<li style="display:none;" class="site-nav-list-item">-->
+                        <!--<a href="/about" class="site-nav-list-item-btn about">-->
+                            <!--<span class="icons"></span>关于Artand</a>-->
+                    <!--</li>-->
+                    <!--<li class="site-nav-list-item">-->
+                        <!--<a href="javascript:;" class="site-nav-list-item-btn idea feedback">-->
+                            <!--<span class="icons"></span>意见反馈</a>-->
+                    <!--</li>-->
+                    <!--<li class="site-nav-list-item">-->
+                        <!--<a href="/public/lang?callback=%2F" class="site-nav-list-item-btn language">-->
+                            <!--<span class="icons"></span>Language</a>-->
+                    <!--</li>-->
+                    <!--<li class="site-nav-list-item border_none">-->
+                        <!--<a href="/mobile?callback=%2F" class="site-nav-list-item-btn APP">-->
+                            <!--<span class="icons"></span>下载APP</a>-->
+                    <!--</li>-->
+                </ul>
+                </div>
+            </div>
+        </div>
+        <div class="st-pusher">
+            <div class="st-content" id="home">
+                <div class="site-nav-overlay"></div>
+                <div>
+                    <div class="profile_btn_warp scroll margin_left_280">
+                        <div class="profile_btn_r">
+                            {% if not request.user.is_authenticated %}
+                            <a href="{% url 'register' %}" class="btn site-reg ">注册</a>
+                            <a href="{% url 'login' %}" class="btn site-login">登录</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="container main-body container_mix_g">
+                        <div class="profile_warp">
+                            <div class="profile_top">
+                                <div class="name_head">
+                                    <a class="head_btn" href="{% url 'org:org_desc' course_org.id %}">
+                                        <img class="head" src="{{ MEDIA_URL }}{{ course_org.image }}" style="display: inline-block;"></a>
+                                </div>
+                                <div class="profile_briefly">
+                                    <h2>
+                                        <span>{{ course_org.name }}</span>
+                                        <a title="认证艺术家" class="approve-btn-a btn approve max" href="/verify"></a>
+                                        <p>
+                                            <span>
+                                                <em>{{ course_org.courses_nums }}</em>门课程</span>
+                                            <span class="clue"></span>
+                                            <span>
+                                                <em>{{ course_org.fav_nums }}</em>学者关注</span></p>
+                                        <div class="Explanation" style="display:none;">
+                                            <div class="ex7">
+                                                <div class="k7"></div>
+                                                <div class="l7"></div>
+                                            </div>
+
+                                        </div>
+                                    </h2>
+                                    <h4>
+                                        <span class="place_icons"></span>{{ course_org.city }}</h4>
+                                </div>
+                                <div class="contact_tab tabs" id="tabs">
+                                    <a href="{% url 'org:org_desc' course_org.id %}" data-title="{{ course_org.name }}的简介 | DAYUart - 最专业的艺术课" data-tab="about" class="btn about_nav on">简介</a>
+                                    <span class="clue"></span>
+                                    <a href="{% url 'org:org_course' course_org.id %}" data-title="{{ course_org.name }}的个人主页 | DAYUart - 最专业的艺术课" data-tab="home" class="btn">课程</a>
+                                    <span class="clue"></span>
+
+                                </div>
+                            {% block right_form %}
+                            {% endblock %}
+                            <div class="footer footer_a">
+                                <div class="footer_left">
+                                    <div class="top">
+                                        <p>
+                                            <em class="copyEM">©</em>
+                                            <a href="{% url 'org:org_desc' course_org.id %}" class="t_links_ash">{{ course_org.name }}</a>&nbsp;&nbsp;
+                                            <a href="{% url 'org:org_desc' course_org.id %}" class="t_links_ash">{% url 'org:org_desc' course_org.id %}</a></p>
+                                    </div>
+                                </div>
+                                <div class="footer_right">
+                                    <a class="two_space_a share-weixin" href="javascript:;">
+
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="//js.artand.cn/concat/?f=plugin%2Fjquery-1.11.0.js%2Cplugin%2Fjuicer-min.js%2Ccommon%2Fbase.js%2Cplugin%2Fjquery.validate.js%2Cplugin%2Fjquery.easyModal.js%2Ccommon%2Ffeedback.js%2Ccommon%2Flang.js%2Ccommon%2Flogin.js%2Ccommon%2Fgotop.js%2Ccommon%2Fautocomplete.js%2Cplugin%2Fjquery.caret.js%2Cplugin%2Fjquery.atwho.js%2Ccommon%2Fat_config.js%2Cworks%2Femotions.js%2Cplugin%2Fjquery.ui.core.min.js%2Cplugin%2Fjquery.ui.widget.min.js%2Cplugin%2Fjquery.iframe-transport.js%2Cplugin%2Fjquery.fileupload.js%2Ccommon%2Fmessage.js%2Ccommon%2Flike.js%2Ccommon%2Ffollow.js%2Ccommon%2Fqr.js%2Cplugin%2Fjquery.inview.js%2Cplugin%2Fjquery.history.js%2Cplugin%2Fjquery.fluidbox.min.js%2Cspinejs%2Fspinejs.js%2Cspinejs%2Froute.js%2Ccommon%2Fcard.js%2Cplugin%2Fjquery.lazyload.js%2Cplugin%2Fjquery.autosize.js%2Cuser%2Fuser.js%2Cuser%2Fhead.js%2Cplugin%2Fstore.js%2Creward%2Freward.js%2Cuser%2Fresume.js&amp;b=script&amp;v=949655"></script>
+    <div class="loading-bar"></div>
+    <script>var _hmt = _hmt || []; (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?40e8d3233d2e7f2696cdcce5c70c60c5";
+            var s = document.getElementsByTagName("script")[0];
+            s.async = true;
+            s.parentNode.insertBefore(hm, s);
+        })();</script>
+    <div class="return_top" style="display: block;">
+        <a class="btn" href="javascript:;"></a>
+    </div>
+
+    <script>var _hmt = _hmt || []; (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?40e8d3233d2e7f2696cdcce5c70c60c5";
+            var s = document.getElementsByTagName("script")[0];
+            s.async = true;
+            s.parentNode.insertBefore(hm, s);
+        })();</script>
+    <div class="return_top" style="display: block;">
+        <a class="btn" href="javascript:;"></a>
+    </div>
+<script src="{% static 'js/selectUi.js' %}" type='text/javascript'></script>
+<script type="text/javascript" src="{% static 'js/plugins/laydate/laydate.js' %}"></script>
+<script src="{% static 'js/plugins/layer/layer.js' %}"></script>
+<script src="{% static 'js/plugins/queryCity/js/public.js' %}" type="text/javascript"></script>
+
+<script type="text/javascript" src="{% static 'js/plugins/jquery.raty.js' %}"></script>
+<script type="text/javascript">
+    //收藏分享
+//收藏分享
+function add_fav(current_elem, fav_id, fav_type){
+    $.ajax({
+        cache: false,
+        type: "POST",
+        url:"{% url 'org:add_fav' %}",
+        data:{'fav_id':fav_id, 'fav_type':fav_type},
+        async: true,
+        beforeSend:function(xhr, settings){
+            xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+        },
+        success: function(data) {
+            if(data.status == 'fail'){
+                if(data.msg == '用户未登录'){
+                    window.location.href="{% url 'login' %}";
+                }else{
+                    current_elem.text(data.msg)
+                }
+
+            }else if(data.status == 'success'){
+                current_elem.text(data.msg)
+            }
+        },
+    });
+}
+
+$('.collectionbtn').on('click', function(){
+    add_fav($(this), {{ course_org.id }}, 2);
+});
+
+$(function(){
+    var $precision = $('.precision'),
+        score = $precision.attr('data-star-scope'),
+        option =  {
+                    half		: true,
+                    path		: '{% static 'images' %}',
+                    precision	: true,
+                    size		: 24,
+                    starOff		: 'g_star.png',
+                    starOn		: 'r_star.png',
+                    starHalf	: 'h_star.png',
+                    hints       : ['极差', '差', '一般', '好评', '非常满意'],
+                    noRatedMsg  : '暂时还未获得评价！',
+                    readOnly    : true,
+                    score       : score
+                };
+    $precision.raty(option);
+
+    $('.jsFavBtn').on('click', function(){
+        var type = $(this).attr('data-fav-type');
+        if(type == '1'){
+            favPraise($(this), 'fav' ,1 , '收藏');
+
+        }else if(type == '3'){
+            favPraise($(this), 'fav' ,3 );
+
+        }else if(type == '11'){
+            favPraise($(this), 'pra', 1);
+
+        }else if(type == '4'){
+            favPraise($(this), 'fav' ,4 );
+
+        }
+    });
+})
+</script>
+
+
+<script type="text/javascript">
+$(function() {
+    $('.recordbtn1').click(function(){
+        $('.recordbox1').show();
+    });
+    $('.recordbtn2').click(function(){
+        $('.recordbox2').show();
+    });
+
+    $('.imgslide').unslider({
+        speed: 500,               //  The speed to animate each slide (in milliseconds)
+        delay: 3000,              //  The delay between slide animations (in milliseconds)
+        complete: function() {},  //  A function that gets called after every slide animation
+        keys: true,               //  Enable keyboard (left, right) arrow shortcuts
+        dots: true,               //  Display dot navigation
+        fluid: false              //  Support responsive design. May break non-responsive designs
+    });
+    var unslider = $('.imgslide').unslider();
+    $('.unslider-arrow').click(function() {
+        var fn = this.className.split(' ')[1];
+        unslider.data('unslider')[fn]();
+    });
+});
+</script>
+
+</body>
+</html>
