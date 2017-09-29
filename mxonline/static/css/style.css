@@ -79,6 +79,7 @@ table.linehei50 td, table.linehei50 th {
     margin-top: 25%;
 }
 
+
 .error_cut {
     width: 40%;
     height: 100%;
@@ -3104,6 +3105,18 @@ footer .footer .line {
     overflow: hidden;
 }
 
+.groupPurchase_detail .toppro .right .btn {
+    float: none;
+    width: 100px;
+    height: 30px;
+    line-height: 30px;
+    border: 1px solid #ff7800;
+    border-radius: 2px;
+    color: #ff7800;
+    margin: 20px auto;
+    cursor: pointer;
+
+}
 .groupPurchase_detail .toppro .right .head {
     background: #717171;
     height: 70px;

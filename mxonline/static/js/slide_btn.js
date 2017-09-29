@@ -9292,10 +9292,10 @@ $(function($) {
 $(function($) {
     var url = '/public/lang',
         isLock,
-        style = '/style/common/language.css',
+        style = '../css/language.css',
         $body = $(document.body),
         $style;
-    style = $CONF['css_host'] + '/style/common/language.css?version=' + $CONF['css_version']
+    style = $CONF['css_host'] + '../css/language.css?version=' + $CONF['css_version']
     loadStyle(style);
 });
 ;

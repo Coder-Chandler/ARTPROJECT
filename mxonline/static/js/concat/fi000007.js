@@ -9008,12 +9008,13 @@ $(function($) {
 });;
 $(function($) {
     var url = '/public/lang',
-    isLock, style = '../style/common/language.css'
+    isLock, style = '../css/language.css'
     /*tpa=http://js.artand.cn/style/common/language.css*/
     ,
     $body = $(document.body),
     $style;
-    style = $CONF['css_host'] + '/style/common/language.css?version=' + $CONF['css_version'] loadStyle(style);
+    style = $CONF['css_host'] + '../css/language.css?version=' + $CONF['css_version']
+    loadStyle(style);
 });;
 $(function() {
     $.extend({

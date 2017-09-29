@@ -361,7 +361,7 @@
                 });
             }
         });
-})();
+});
 
 function sendCitiesAjax() {
     $.ajax({

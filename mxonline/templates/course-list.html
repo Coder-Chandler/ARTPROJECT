@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block title %}CTMart - 年轻人的艺术平台{% endblock %}
+{% block title %}DAYUart - 年轻人的艺术平台{% endblock %}
 {% load staticfiles %}
 {% block custom_bread %}
 {% endblock %}
@@ -13,7 +13,7 @@
 <div class="history-container">
   <div class="carefully_feed max_width_1250">
     <ul class="carefully_feed works">
-        {% for course in all_course.object_list %}
+        {% for course in all_course %}
             <li>
                 <div class="artist_box item">
                   <div class="item-info">

@@ -12,7 +12,7 @@ from utils.mixin_utils import LoginRequiredMixin
 
 class CourseListView(View):
     def get(self, request):
-        all_course = Course.objects.all().order_by('-add_time')
+        all_course = Course.objects.all().order_by('add_time')
 
         hot_course = Course.objects.all().order_by('-click_nums')[:3]
 
@@ -32,17 +32,17 @@ class CourseListView(View):
                 all_course = all_course.order_by('-click_nums')
 
         # 使用django-pure-pagination对课程进行分页（https://github.com/jamespacileo/django-pure-pagination）
-        try:
-            page = request.GET.get('page', 1)
-        except PageNotAnInteger:
-            page = 1
-
-        p = Paginator(all_course, 10, request=request)
-
-        courses = p.page(page)
+        # try:
+        #     page = request.GET.get('page', 1)
+        # except PageNotAnInteger:
+        #     page = 1
+        #
+        # p = Paginator(all_course, 10, request=request)
+        #
+        # courses = p.page(page)
 
         return render(request, 'course-list.html', {
-            'all_course': courses,
+            'all_course': all_course,
             'sort': sort,
             'hot_course': hot_course
         })
@@ -54,11 +54,11 @@ class CourseDetailView(View):
     '''
     def get(self, request, course_id):
         course = Course.objects.get(id=int(course_id))
-
+        all_course = Course.objects.all().order_by('-add_time')
         # 增加课程点击数
         course.click_nums += 1
         course.save()
-
+        all_comment = CourseComments.objects.all().order_by('add_time')
         has_fav_course = False
         has_fav_org = False
         if request.user.is_authenticated():
@@ -71,11 +71,23 @@ class CourseDetailView(View):
             relate_courses = Course.objects.filter(tag=tag)[:3]
         else:
             relate_courses = []
+
+        # 使用django-pure-pagination对课程进行分页（https://github.com/jamespacileo/django-pure-pagination）
+        try:
+            page = request.GET.get('page', 1)
+        except PageNotAnInteger:
+            page = 1
+
+        p = Paginator(all_comment, 6, request=request)
+
+        all_comment = p.page(page)
         return render(request, 'course-detail.html', {
+            'all_course': all_course,
             'course': course,
             'relate_courses': relate_courses,
             'has_fav_course': has_fav_course,
-            'has_fav_org': has_fav_org
+            'has_fav_org': has_fav_org,
+            'all_comment': all_comment
         })
 
 
