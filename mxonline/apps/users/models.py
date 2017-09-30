@@ -38,19 +38,21 @@ class Comment(models.Model):
         return self.content
 
 
-class Weibo(models.Model):
-    weibo_content = models.TextField()
+class Artists(models.Model):
+    Artist_name = models.CharField(max_length=50, default=u"", verbose_name=u"作品名称")
 
-    comment = models.ManyToManyField(Comment)
+    Artist_size = models.IntegerField(default=100, verbose_name=u"尺寸")
 
-    image_content = models.ImageField(upload_to="grumblr_photos", blank = True)
+    Artist_image = models.ImageField(upload_to="image/%Y/%m", max_length=100)
 
-    like = models.IntegerField(default=0)
+    Artist_time = models.DateField(verbose_name=u"创作日期", default="")
+
+    Artist_material = models.CharField(max_length=100, default=u"", verbose_name=u"作品材质")
 
     post_time = models.DateTimeField(auto_now_add=True)
 
     def _unicode_(self):
-        return self.weibo_content
+        return self.Artist_name
 
 
 class EmailVerifyRecord(models.Model):
@@ -73,7 +75,6 @@ class Banner(models.Model):
     url = models.URLField(max_length=100, verbose_name=u"访问地址")
     index = models.IntegerField(default=100, verbose_name=u"顺序")
     add_time = models.DateField(default=datetime.now, verbose_name=u"添加时间")
-
 
     class Meta:
         verbose_name = u"轮播图"

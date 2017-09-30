@@ -365,13 +365,11 @@ def page_error(request):
 class IndexUsersView(View):
     # 网站首页
     def get(self, request):
-        courses = Course.objects.filter(is_banner=False)[:100]
+        courses = Course.objects.all().order_by("add_time")
         return render(request, 'user_index.html', {
             'courses': courses,
         })
 
-
-class IndexUsersView_(View):
     def add_weibo(self, request):
         errors = []
 
@@ -403,38 +401,6 @@ def show_weibos(request):
 
     return render(request, "user_index.html", {"weibos" : weibos})
 
-
-def add_comment(request, weibo_id):
-    errors = []
-
-    # Creates a new weibo if it is present as a parameter in the request
-
-    if not "text" in request.POST or not request.POST["text"]:
-
-        errors.append("You must enter text in a weibo.")
-
-    else:
-
-        new_comment = Comment(content=request.POST["text"], user = request.user)
-
-        new_comment.save()
-
-    if not "weibo_id" in request.POST or not request.POST["weibo_id"]:
-
-        errors.append("You must give a weibo id.")
-
-    else:
-
-        weibo = Weibo.objects.get(id=weibo_id)
-
-        weibo.comment.add(new_comment)
-
-        weibo.save()
-
-    return render(request, "user_index.html", {
-        "weibo": weibo,
-        "errors": errors,
-    })
 
 
 

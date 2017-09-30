@@ -14104,3 +14104,185 @@ span {
 	background-size:1266px 587px
 }
 }
+
+.piece_content .feed_warp {
+    width: 100%;
+    vertical-align: top;
+    text-align: center;
+    position: relative;
+}
+
+.piece_content .left_feed {
+    width: 100%;
+}
+
+.piece_content .left_feed {
+    display: inline-block;
+    float: left;
+}
+
+.left_feed {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.piece_content .box_warp {
+    width: 100%;
+}
+
+.piece_content .box_warp {
+    max-width: 598px;
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #fff;
+    border-image: none;
+    border: 1px solid #E5E5E5;
+    box-shadow: 0 1px 0 #ccc;
+    display: block;
+}
+
+.piece_content .margin_b20 {
+    margin-bottom: 20px!important;
+}
+
+.piece_content .box {
+    padding: 20px 20px 0 20px;
+}
+
+.piece_content .box .tp {
+    min-width: 558px;
+    width: 100%;
+    position: relative;
+}
+
+.piece_content .margin_b20 {
+    margin-bottom: 20px!important;
+}
+
+.piece_content .box .head {
+    width: 50px;
+    height: 50px;
+    display: inline-block;
+    border-radius: 50px;
+    float: left;
+    overflow: hidden;
+}
+
+.piece_content .margin_right15 {
+    margin-right: 15px;
+}
+
+.piece_content .box .text {
+    max-width: 460px;
+    float: left;
+}
+
+.btn {
+    box-shadow: none;
+    display: inline-block;
+    text-decoration: none;
+    text-shadow: none;
+    transition: border 0.1s linear 0s, color 0.1s linear 0s, background-color 0.1s linear 0s;
+}
+
+.btn {
+    border: medium none;
+    border: none;
+    box-shadow: none;
+    text-shadow: none;
+    display: inline-block;
+    text-decoration: none;
+    transition: border 0.1s linear 0s, color 0.1s linear 0s, background-color 0.1s linear 0s;
+}
+
+.btn {
+    border: medium none;
+    border: none;
+    box-shadow: none;
+    text-shadow: none;
+    text-decoration: none;
+    transition: border 0.1s linear 0s, color 0.1s linear 0s, background-color 0.1s linear 0s;
+}
+
+body a {
+    outline: none;
+}
+
+a:-webkit-any-link {
+    color: -webkit-link;
+    cursor: auto;
+    text-decoration: underline;
+}
+
+.piece_content .box .head img {
+    width: 50px;
+    height: 50px;
+    display: inline-block;
+    border-radius: 50px;
+}
+
+img {
+    vertical-align: middle;
+}
+
+.piece_content .box .text {
+    max-width: 460px;
+    float: left;
+}
+
+.piece_content .box .text h3 {
+    font-size: 14px;
+    color: #999;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    overflow: hidden;
+    text-align: left;
+}
+
+.piece_content .box .text .padding_r3 {
+    max-width: 10em;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    float: left;
+}
+
+.piece_content .box .text .padding_r3 {
+    padding-right: 3px;
+}
+
+.t_links_blue {
+    color: #069;
+}
+
+.btn {
+    box-shadow: none;
+    display: inline-block;
+    text-decoration: none;
+    text-shadow: none;
+    transition: border 0.1s linear 0s, color 0.1s linear 0s, background-color 0.1s linear 0s;
+}
+
+.feed_warp .left_feed .feed_row .text .approve {
+    float: left;
+    top: 0;
+}
+
+.feed_row .approve {
+    position: relative;
+    top: 4px;
+    margin: 0 3px 0 0;
+}
+
+.feed_row .cGrade {
+    position: relative;
+    float: left;
+    top: 1px;
+    margin: 0 5px 0 0;
+}
+
+.approve {
+    margin: 0 3px;
+}

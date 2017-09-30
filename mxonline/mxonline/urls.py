@@ -47,6 +47,8 @@ urlpatterns = [
     # 配置上传文件的访问处理函数
     url(r'^media/(?P<path>.*)$', serve, {'document_root': MEDIA_ROOT}),
 
+    # 发布作品相关url配置
+    url(r'^artists$/', include('courses.urls', namespace='course')),
 
     # url(r'^static/(?P<path>.*)$', serve, {'document_root': STATIC_ROOT}),
 

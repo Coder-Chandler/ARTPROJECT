@@ -1,683 +1,577 @@
-{% extends 'base.html' %}
-{% block title %}DAYUart - 年轻人的艺术平台{% endblock %}
-{% load staticfiles %}
-{% block custom_bread %}
-{% endblock %}
+<!DOCTYPE html>
+<html lang="en">
+  {% load staticfiles %}
+  <head>
+  <meta charset="utf-8">
+  <title>Artand - 最专业的当代艺术社交平台</title>
+  <meta name="keywords" content="动态,聊天,艺术朋友圈">
+  <meta name="description" content="在ARTAND动态中，你可以与大家分享你的所思所想，跟大家分享有趣的好玩的事情，还可以看到好友发布的更新和他们在Artand的动态。">
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+  <script src="//hm.baidu.com/hm.js?40e8d3233d2e7f2696cdcce5c70c60c5"></script>
+  <script type="text/javascript" async="">var isIE = navigator.userAgent.toLowerCase().search(/(msie\s|trident.*rv:)([\w.]+)/) != -1;
+    if (isIE) {
+      document.write("<link rel='stylesheet' href='//static.artand.cn/style/ie_hack/ie_hack.css?v=399778'\/>");
+    }
+    if (typeof JSON == "undefined") {
+      document.write('<script type="text/javascript" src="http://lib.sinaapp.com/js/json2/json2.js"><\/scr' + 'ipt>');
+    }</script>
+  <!--[if lt IE 9]>
+    <link rel='stylesheet' href='//static.artand.cn/style/ie_hack/ie_hack_8.css?v=399778' />
+  <![endif]-->
+  <meta name="format-detection" content="telephone=no">
+  <link rel="stylesheet" href="{% static 'js/concat/fcommon_2.css' %}">
+  <script type="text/tmpl" id="anonymous_tmpl">< div class = "yellow_warp" > <div class = "yellow_bm" > <p > TA不想让你知道自己是谁！ < /p></div > <div class = "m_sj" > <div class = "mB d7" > </div></div ></div>/</script>
+  <script type="text/tmpl" id="chat_img_dialog">< div class = "Height_100" > <div class = "piece_content Height_100" > <div class = "pg_layer" > <div class = "left_content" > <div class = "photos_lightbox_close" > <a href = "javascript:;"class = "btn cra_btn close_btn" > </a></div > <div class = "photos_lightbox" > <div class = "lightbox" > <div class = "img_wallpaper" > <div class = "imageContainer" > <div class = "img-warp image_list" > </div></div ></div>
+									{@if _.length > 1}
+									<div class="img-nav clearfix"><div class="img-nav_warp"><div class="img-ul-nav"><div class="img-nav-order page_nav"><i class="js-order current_num">1</i > <em class = "js-totalCount" > $ {
+      _.length
+    } < /em></div > <ul class = "clearfix thumb_nav" > {@each _ as it
+    } < li > <img src = "http://chatart.qiniudn.com/${it}!c55.jpg"style = "display:none;" > <a href = "javascript:;" > </a></li > {@ / each
+    } < /ul></div > </div></div > {@ /
+      if
+    } {@
+      if _.length > 1
+    } < p class = "hide page_nav" > <i class = "current_num" > 1 < /i><span>/ < /span>
+										${_.length}
+			                        </p > {@ /
+      if
+    } < /div><div class="spinner_loading sp_load"></div ></div>
+							{@if _.length >1}
+								<a href="javascript:;" class="btn last_btn prev_btn"></a > <a href = "javascript:;"class = "btn next_btn" ></a>
+							{@/
+    if
+  } < /div><div class="right_dialog"><div class="r_dialog"><div class="box_warp feed_row"></div > </div></div > </div></div ></div>/</script>
+  <script type="text/tmpl" id="qrcode_tmpl">< div class = "msg_box weixin" > <div class = "msg_close" > <a href = "javascript:;"class = "close btn"title = "关闭" > </a></div > <div class = "msg_content" > <div class = "msg_two_dimensional" > {@
+      if is_wechat
+    } < p class = "padding_bottom_10" > 用微信“ < span class = "red" > 扫一扫 < /span>”并分享到“<span class="red">朋友圈</span > ” < br > 请好朋友们来帮忙点赞！ < /p>
+				{@/
+    if
+  } < div class = "img"style = "background-image:url(http://file.artand.com.cn/images/pic/qr.jpg)" ></div>
+				{@if !is_wechat}
+                <p>欢迎关注Artand微信公众帐号</p > {@
+    if url
+  } < div class = "Qr_code" > <a class = "btn"href = "${url}"target = "_blank" > 下载更多尺寸 < /a></div > {@ /
+    if
+  } {@ /
+    if
+  } < /div></div > </div>/</script>
+  <script type="text/tmpl" id="card_teml">< div class = "carte_top" > <div class = "name_head" > <a href = "${user.domain}"class = "head_btn" > <img src = "${user.head}"class = "head" ></a>
+			{@if user.is_verfiy >0}
+            	{@if user.role == 1}<a title="认证艺术家" class="approve-btn-a btn approve" href="/verify "></a>
+	            	{@else if user.role == 4}<a title="认证机构" class="approve - btn - c btn approve " href=" / verify "></a>
+ 	            	{@else if user.role == 6}<a title="认证评论家" class="critic btn " href=" / verify "></a>
+            	{@/if}
+            {@/if}
+        </div>
+		{@if isSafari}
+		<h3><a href="$ {
+      user.domain
+    }
+    " class="btn t_links_blue ">${user.uname}</a></h3><h3>
+		    {@if user.rank && user.rank.id}
+	            <a href=" / about / collector " class="btn cGrade grade$ {
+      user.rank['id']
+    }
+    "></a>
+            {@/if}
+		</h3>
+		{@else}
+		<h3><a href="$ {
+      user.domain
+    }
+    " class="btn t_links_blue ">${user.uname}</a>
+            {@if user.rank && user.rank.id}
+	            <a href=" / about / collector " class="btn cGrade grade$ {
+      user.rank['id']
+    }
+    "></a>
+            {@/if}
+		</h3>
+		{@/if}
 
-{% block custom_js %}
-    <script type="text/javascript" src="{% static 'js/index.js' %}"></script>
-{% endblock %}
-
-{% block content %}
-<!--主页面主体-->
-<div class="feed_warp clearfix" id="feed_list">
-  <div class="left_feed">
-    <div class="left_feed1">
-      <div class="box_warp margin_b20 feed_row" data-uid="131">
-        <div class="box">
-          <div class="tp clearfix margin_b20">
-            <div class="head margin_right15">
-              <a class="btn" data-card-id="131" target="_blank" href="/info">
-                <img data-src="//head.artand.cn/131/21/200" src="//head.artand.cn/131/21/200" style="display: inline-block;"></a>
-            </div>
-            <div class="text">
-              <h3>
-                <a class="btn t_links_blue padding_r3" target="_blank" data-card-id="131" href="/info">Artand官方账号</a>
-                <a title="认证艺术家" data-card-id="131" class="approve-btn-a btn approve" href="/verify"></a>
-                <a href="/about/collector" data-card-id="131" class="btn cGrade grade3"></a>
-                <span>赞了
-                  <a target="_blank" class="btn t_links_blue padding_lr3" href="/artid/567390">triggered cell</a>和另外1件作品</span></h3>
-              <p class="padding_t9">6小时前</p></div>
-            <div class="full opts_black_a" data-chat-type="8" data-uname="Artand官方账号" data-uid="131" data-chat-id="3832008,3793767"></div>
-          </div>
-          <div class="volist">
-            <div class="tp cover vl clearfix  margin_b20">
-              <div class="co_bj">
-                <a target="_blank" class="btn" href="/artid/567390">
-                  <img data-src="http://img7.yingworks.com/1O3Q/FvDeeIiFwBUiCgPKYOn9wl1jfFzj.jpg!c480" src="http://img7.yingworks.com/1O3Q/FvDeeIiFwBUiCgPKYOn9wl1jfFzj.jpg!c480" style="display: inline-block;"></a>
-              </div>
-              <div class="co_text">
-                <h3>
-                  <a target="_blank" href="/artid/567390" class="black">triggered cell</a></h3>
-                <p>
-                  <a target="_blank" href="/jujuwang" data-card-id="430766" class="btn_ash_a btn">JUJU WANG</a>&nbsp;-&nbsp;2017年作品</p>
-                <p>装置</p>
-                <p>300×500×700cm</p>
-                <p>非卖品</p>
-              </div>
-            </div>
-            <div class="tp cover clearfix  margin_b20 vl hide">
-              <div class="co_bj">
-                <a target="_blank" class="btn" href="/artid/564158">
-                  <img data-src="http://img7.yingworks.com/A0O/lvTSFNZFE-nsfwLmFcMq_uezQqbS.jpg!c480" src="http://img7.yingworks.com/A0O/lvTSFNZFE-nsfwLmFcMq_uezQqbS.jpg!c480" style="display: inline-block;"></a>
-              </div>
-              <div class="co_text">
-                <h3>
-                  <a target="_blank" href="/artid/564158" class="black">空房间的独舞</a></h3>
-                <p>
-                  <a target="_blank" href="/sico" data-card-id="138434" class="btn_ash_a btn">徐世琨</a>&nbsp;-&nbsp;2017年作品</p>
-                <p>油画</p>
-                <p>120×90cm</p>
-                <p>非卖品</p>
-              </div>
-            </div>
-            <div class="margin_b20 more_btn_box">
-              <a data-max="0" class="btn more_btn find_more" data-close="收起" data-text="查看更多" href="javascript:;">查看更多</a></div>
-          </div>
-        </div>
-      </div>
-      <div class="box_warp margin_b20 feed_row" data-uid="131">
-        <div class="box">
-          <div class="tp clearfix  margin_b20 ">
-            <div class="head margin_right15">
-              <a target="_blank" class="btn" data-card-id="131" href="/info">
-                <img data-src="//head.artand.cn/131/21/200"></a>
-            </div>
-            <div class="text">
-              <h3>
-                <a target="_blank" class="btn t_links_blue padding_r3" data-card-id="131" href="/info">Artand官方账号</a>
-                <a title="认证艺术家" data-card-id="131" class="approve-btn-a btn approve" href="/verify"></a>
-                <a href="/about/collector" data-card-id="131" class="btn cGrade grade3"></a>
-                <span>赞了
-                  <a target="_blank" class="btn t_links_blue padding_lr3" data-card-id="433105" href="/uid/533105">Artand Space</a>的文章</span></h3>
-              <div class="full opts_black_a" data-chat-type="8" data-uname="Artand官方账号" data-uid="131" data-chat-id="3831995"></div>
-              <p class="padding_t9">6小时前</p></div>
-          </div>
-          <div class="volist">
-            <div class="tp article_w clearfix margin_b20">
-              <div class="co_bj">
-                <a target="_blank" class="btn" href="/article/1XwW">
-                  <img data-src="http://img9.yingworks.com//1OFz/FojHJpRcw1g_wVSXFrqJaXLJYF43.jpg!c480"></a>
-              </div>
-              <div class="co_text co_text_off">
-                <h3>
-                  <a target="_blank" href="/article/1XwW" class="black">【展览征稿】《我来自一九九零》Artand“星未来”90后艺术家推介计划</a></h3>
-                <p>如果你是90后艺术新星人不管绘画、雕塑或是摄影在10月13日前将你的原创作品及简历打包投递到space@artand.cn邮件以”艺术家姓名＋我来自1990“命名你将有机会入围到Artand“星未来”</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="box_warp margin_b20 feed_row" data-uid="433105">
-        <div class="box">
-          <div class="tp clearfix margin_b20">
-            <div class="head margin_right15">
-              <a class="btn" data-card-id="433105" target="_blank" href="/uid/533105">
-                <img data-src="//head.artand.cn/433105/89/200"></a>
-            </div>
-            <div class="text">
-              <h3>
-                <a class="btn t_links_blue padding_r3" target="_blank" data-card-id="433105" href="/uid/533105">Artand Space</a>
-                <a title="认证机构" data-card-id="433105" class="approve-btn-c btn approve" href="/verify"></a>
-                <span>赞了
-                  <a target="_blank" class="btn t_links_blue padding_lr3" href="/artid/566624">寒床之湿地</a>和另外26件作品</span></h3>
-              <p class="padding_t9">1天前</p></div>
-            <div class="full opts_black_a" data-chat-type="8" data-uname="Artand Space" data-uid="433105" data-chat-id="3829028,3829026,3829023,3829020,3829013,3829006,3829003,3829000,3828997,3828993,3822691,3816117,3811205,3811203,3806291,3801741,3799891,3796647,3791879,3787742,3787741,3787740,3787739,3787734,3787434,3782517,3782454"></div>
-          </div>
-          <div class="volist">
-            <div class="tp cover vl clearfix  margin_b20">
-              <div class="co_bj">
-                <a target="_blank" class="btn" href="/artid/566624">
-                  <img data-src="http://img5.yingworks.com/kSI/Fp-1my1Wrnt7I_qmXcbOuqcw4aRE.jpg!c480"></a>
-              </div>
-              <div class="co_text">
-                <h3>
-                  <a target="_blank" href="/artid/566624" class="black">寒床之湿地</a></h3>
-                <p>
-                  <a target="_blank" href="/uid/180272" data-card-id="80272" class="btn_ash_a btn">林文</a>&nbsp;-&nbsp;2017年作品</p>
-                <p>油画</p>
-                <p>175×135cm</p>
-                <p>非卖品</p>
-              </div>
-            </div>
-            <div class="tp cover clearfix  margin_b20 vl hide">
-              <div class="co_bj">
-                <a target="_blank" class="btn" href="/artid/566910">
-                  <img data-src="http://img7.yingworks.com/1Uje/Fsnvd0Og4jjaMX1Cx0FtU4kRq8d9.jpg!c480"></a>
-              </div>
-              <div class="co_text">
-                <h3>
-                  <a target="_blank" href="/artid/566910" class="black">《内向 2016 07 10》</a></h3>
-                <p>
-                  <a target="_blank" href="/zhangxiaotian" data-card-id="454784" class="btn_ash_a btn">张啸天</a>&nbsp;-&nbsp;2016年作品</p>
-                <p>综合材料</p>
-                <p>140×120cm</p>
-                <p>价格保密</p>
-              </div>
-            </div>
-            <div class="tp cover clearfix  margin_b20 vl hide">
-              <div class="co_bj">
-                <a target="_blank" class="btn" href="/artid/478434">
-                  <img data-src="http://img8.yingworks.com/7pf/FrYzp9pnSLeBNbzta7pHEMKhqWNN.jpeg!c480"></a>
-              </div>
-              <div class="co_text">
-                <h3>
-                  <a target="_blank" href="/artid/478434" class="black">能量方向</a></h3>
-                <p>
-                  <a target="_blank" href="/hexiaoli" data-card-id="28473" class="btn_ash_a btn">何晓</a>&nbsp;-&nbsp;2016年作品</p>
-                <p>油画</p>
-                <p>30×45cm</p>
-                <p>售价：￥5,000.00</p>
-              </div>
-            </div>
-            <div class="tp cover clearfix  margin_b20 vl hide">
-              <div class="co_bj">
-                <a target="_blank" class="btn" href="/artid/338399">
-                  <img data-src="http://img6.yingworks.com/ks2/Fuat_wa00vnqMpLIUvlL7PDE74r7.jpg!c480"></a>
-              </div>
-              <div class="co_text">
-                <h3>
-                  <a target="_blank" href="/artid/338399" class="black">不适症</a></h3>
-                <p>
-                  <a target="_blank" href="/chenjinsheng" data-card-id="78618" class="btn_ash_a btn">陈金生</a>&nbsp;-&nbsp;2016年作品</p>
-                <p>油画</p>
-                <p>100×70cm</p>
-                <p>价格保密</p>
-              </div>
-            </div>
-            <div class="tp cover clearfix  margin_b20 vl hide">
-              <div class="co_bj">
-                <a target="_blank" class="btn" href="/artid/381697">
-                  <img data-src="http://img6.yingworks.com/5ls/FlAO--9KunRBsUyeVpxFsHvdE7ZC.jpg!c480"></a>
-              </div>
-              <div class="co_text">
-                <h3>
-                  <a target="_blank" href="/artid/381697" class="black">镜像二</a></h3>
-                <p>
-                  <a target="_blank" href="/92ldob" data-card-id="20550" class="btn_ash_a btn">耿雪</a>&nbsp;-&nbsp;2016年作品</p>
-                <p>油画</p>
-                <p>170×200cm</p>
-                <p>价格保密</p>
-              </div>
-            </div>
-            <div class="tp cover clearfix  margin_b20 vl hide">
-              <div class="co_bj">
-                <a target="_blank" class="btn" href="/artid/335036">
-                  <img data-src="http://img7.yingworks.com/Bvf/Fil5PJVRTMNHQ5xnHlOIsJ75NAqi.jpeg!c480"></a>
-              </div>
-              <div class="co_text">
-                <h3>
-                  <a target="_blank" href="/artid/335036" class="black">我来到车水马龙的钟楼</a></h3>
-                <p>
-                  <a target="_blank" href="/lirol" data-card-id="144165" class="btn_ash_a btn">刘强</a>&nbsp;-&nbsp;2016年作品</p>
-                <p>油画</p>
-                <p>200×150cm</p>
-                <p>售价：￥8,000.00</p>
-              </div>
-            </div>
-            <div class="tp cover clearfix  margin_b20 vl hide">
-              <div class="co_bj">
-                <a target="_blank" class="btn" href="/artid/562680">
-                  <img data-src="http://img8.yingworks.com/kSI/FtkTarV2OX5KWEDlttF1r1VlOMTP.jpg!c480"></a>
-              </div>
-              <div class="co_text">
-                <h3>
-                  <a target="_blank" href="/artid/562680" class="black">临渊</a></h3>
-                <p>
-                  <a target="_blank" href="/uid/180272" data-card-id="80272" class="btn_ash_a btn">林文</a>&nbsp;-&nbsp;2017年作品</p>
-                <p>油画</p>
-                <p>100×180cm</p>
-                <p>非卖品</p>
-              </div>
-            </div>
-            <div class="tp cover clearfix  margin_b20 vl hide">
-              <div class="co_bj">
-                <a target="_blank" class="btn" href="/artid/567136">
-                  <img data-src="http://img7.yingworks.com/kSI/lsCRgBzrLTFzAqtRHQ2n1EmrcHap.jpg!c480"></a>
-              </div>
-              <div class="co_text">
-                <h3>
-                  <a target="_blank" href="/artid/567136" class="black">寒床之白日梦</a></h3>
-                <p>
-                  <a target="_blank" href="/uid/180272" data-card-id="80272" class="btn_ash_a btn">林文</a>&nbsp;-&nbsp;2016年作品</p>
-                <p>油画</p>
-                <p>280×200cm</p>
-                <p>非卖品</p>
-              </div>
-            </div>
-            <div class="tp cover clearfix  margin_b20 vl hide">
-              <div class="co_bj">
-                <a target="_blank" class="btn" href="/artid/567104">
-                  <img data-src="http://img7.yingworks.com/1VmM/Fs0J7wHlYf3GADVvyIl6xAtZUfP8.jpg!c480"></a>
-              </div>
-              <div class="co_text">
-                <h3>
-                  <a target="_blank" href="/artid/567104" class="black">共生系列</a></h3>
-                <p>
-                  <a target="_blank" href="/uid/558848" data-card-id="458848" class="btn_ash_a btn">纪龙波</a>&nbsp;-&nbsp;2016年作品</p>
-                <p>水彩</p>
-                <p>29×38cm</p>
-                <p>价格保密</p>
-              </div>
-            </div>
-            <div class="tp cover clearfix  margin_b20 vl hide">
-              <div class="co_bj">
-                <a target="_blank" class="btn" href="/artid/567105">
-                  <img data-src="http://img5.yingworks.com/1VmM/Fglq_HWGJcZTfmcXxW6QYTKXEIgm.jpg!c480"></a>
-              </div>
-              <div class="co_text">
-                <h3>
-                  <a target="_blank" href="/artid/567105" class="black">共生系列</a></h3>
-                <p>
-                  <a target="_blank" href="/uid/558848" data-card-id="458848" class="btn_ash_a btn">纪龙波</a>&nbsp;-&nbsp;2016年作品</p>
-                <p>水彩</p>
-                <p>29×38cm</p>
-                <p>已售</p>
-              </div>
-            </div>
-            <div class="tp cover clearfix  margin_b20 vl hide">
-              <div class="co_bj">
-                <a target="_blank" class="btn" href="/artid/122109">
-                  <img data-src="http://img6.yingworks.com/fM/FgUUAsVbn1Cic7HCCxsMJvKVzoNR/39/0!c480"></a>
-              </div>
-              <div class="co_text">
-                <h3>
-                  <a target="_blank" href="/artid/122109" class="black">青气园·大家一齐嗨起来【限量版20张】</a></h3>
-                <p>
-                  <a target="_blank" href="/elonma" data-card-id="978" class="btn_ash_a btn">马伊隆</a>&nbsp;-&nbsp;2014年作品</p>
-                <p>版画</p>
-                <p>60×42cm</p>
-                <p>售价：￥399.00</p>
-              </div>
-            </div>
-            <div class="tp cover clearfix  margin_b20 vl hide">
-              <div class="co_bj">
-                <a target="_blank" class="btn" href="/artid/400413">
-                  <img data-src="http://img6.yingworks.com/uz/FmZf99Tp6dg4-2uT4JrNiUVTmqmG.jpeg!c480"></a>
-              </div>
-              <div class="co_text">
-                <h3>
-                  <a target="_blank" href="/artid/400413" class="black">Today</a></h3>
-                <p>
-                  <a target="_blank" href="/zangpeng" data-card-id="1895" class="btn_ash_a btn">臧鹏</a>&nbsp;-&nbsp;2016年作品</p>
-                <p>油画</p>
-                <p>80×120cm</p>
-                <p>售价：￥20,000.00</p>
-              </div>
-            </div>
-            <div class="tp cover clearfix  margin_b20 vl hide">
-              <div class="co_bj">
-                <a target="_blank" class="btn" href="/artid/565735">
-                  <img data-src="http://img7.yingworks.com/kzj/Fse7BVD31viGT0VtTmwLhXHnUVjc.jpg!c480"></a>
-              </div>
-              <div class="co_text">
-                <h3>
-                  <a target="_blank" href="/artid/565735" class="black">穿行</a></h3>
-                <p>
-                  <a target="_blank" href="/cccn" data-card-id="79069" class="btn_ash_a btn">陈海俊</a>&nbsp;-&nbsp;2017年作品</p>
-                <p>油画</p>
-                <p>80×120cm</p>
-                <p>非卖品</p>
-              </div>
-            </div>
-            <div class="tp cover clearfix  margin_b20 vl hide">
-              <div class="co_bj">
-                <a target="_blank" class="btn" href="/artid/565733">
-                  <img data-src="http://img7.yingworks.com/1Sfm/Fu-VmDPYgdUTHrMXqUoZVT9Y2kYY.png!c480"></a>
-              </div>
-              <div class="co_text">
-                <h3>
-                  <a target="_blank" href="/artid/565733" class="black">窥Peek</a></h3>
-                <p>
-                  <a target="_blank" href="/xiaofeiyue" data-card-id="446856" class="btn_ash_a btn">岳小飞</a>&nbsp;-&nbsp;2017年作品</p>
-                <p>国画</p>
-                <p>58×86cm</p>
-                <p>非卖品</p>
-              </div>
-            </div>
-            <div class="tp cover clearfix  margin_b20 vl hide">
-              <div class="co_bj">
-                <a target="_blank" class="btn" href="/artid/565363">
-                  <img data-src="http://img8.yingworks.com/oe/FpfhC4YA8Pu4ihPvrts972AjRaKK.jpg!c480"></a>
-              </div>
-              <div class="co_text">
-                <h3>
-                  <a target="_blank" href="/artid/565363" class="black">望春秋</a></h3>
-                <p>
-                  <a target="_blank" href="/zhangxin" data-card-id="1502" class="btn_ash_a btn">张鑫</a>&nbsp;-&nbsp;2017年作品</p>
-                <p>油画</p>
-                <p>50×80cm</p>
-                <p>非卖品</p>
-              </div>
-            </div>
-            <div class="tp cover clearfix  margin_b20 vl hide">
-              <div class="co_bj">
-                <a target="_blank" class="btn" href="/artid/151714">
-                  <img data-src="http://img6.yingworks.com/1WY/Fojmgoj6WVVilEXnyZ3IOSs2Mb--/17/0!c480"></a>
-              </div>
-              <div class="co_text">
-                <h3>
-                  <a target="_blank" href="/artid/151714" class="black">远方的寂静-4</a></h3>
-                <p>
-                  <a target="_blank" href="/zhangqinghui" data-card-id="7500" class="btn_ash_a btn">张庆慧</a>&nbsp;-&nbsp;2013年作品</p>
-                <p>油画</p>
-                <p>70×100cm</p>
-                <p>非卖品</p>
-              </div>
-            </div>
-            <div class="tp cover clearfix  margin_b20 vl hide">
-              <div class="co_bj">
-                <a target="_blank" class="btn" href="/artid/565061">
-                  <img data-src="http://img6.yingworks.com/EqQ/FrgHHTKZKEr7ssenkJgt5STLbWit.jpg!c480"></a>
-              </div>
-              <div class="co_text">
-                <h3>
-                  <a target="_blank" href="/artid/565061" class="black">假寐</a></h3>
-                <p>
-                  <a target="_blank" href="/nezhatiaohai" data-card-id="155424" class="btn_ash_a btn">郭警</a>&nbsp;-&nbsp;2017年作品</p>
-                <p>油画</p>
-                <p>60×50cm</p>
-                <p>非卖品</p>
-              </div>
-            </div>
-            <div class="tp cover clearfix  margin_b20 vl hide">
-              <div class="co_bj">
-                <a target="_blank" class="btn" href="/artid/564430">
-                  <img data-src="http://img7.yingworks.com/1V5P/FgbOSJ-pC-EqlyPQ73oAegpTcf0S.jpg!c480"></a>
-              </div>
-              <div class="co_text">
-                <h3>
-                  <a target="_blank" href="/artid/564430" class="black">裸与和平</a></h3>
-                <p>
-                  <a target="_blank" href="/guohaichao" data-card-id="457797" class="btn_ash_a btn">郭海潮</a>&nbsp;-&nbsp;2017年作品</p>
-                <p>国画</p>
-                <p>61×49cm</p>
-                <p>非卖品</p>
-              </div>
-            </div>
-            <div class="tp cover clearfix  margin_b20 vl hide">
-              <div class="co_bj">
-                <a target="_blank" class="btn" href="/artid/562162">
-                  <img data-src="http://img6.yingworks.com/17l/Fvm5vrTbNy9_szabjYSmpOwpCYCC.jpg!c480"></a>
-              </div>
-              <div class="co_text">
-                <h3>
-                  <a target="_blank" href="/artid/562162" class="black">我的五彩双角面具</a></h3>
-                <p>
-                  <a target="_blank" href="/zhipeng" data-card-id="4299" class="btn_ash_a btn">崔志鹏</a>&nbsp;-&nbsp;2016年作品</p>
-                <p>丙烯</p>
-                <p>81×61cm</p>
-                <p>售价：￥8,000.00</p>
-              </div>
-            </div>
-            <div class="tp cover clearfix  margin_b20 vl hide">
-              <div class="co_bj">
-                <a target="_blank" class="btn" href="/artid/414365">
-                  <img data-src="http://img7.yingworks.com/xFk/FovLq1F0p3wcPwMyMRj0yGQOWp-3.jpg!c480"></a>
-              </div>
-              <div class="co_text">
-                <h3>
-                  <a target="_blank" href="/artid/414365" class="black">繁星</a></h3>
-                <p>
-                  <a target="_blank" href="/luoqiang522" data-card-id="129414" class="btn_ash_a btn">罗蔷</a>&nbsp;-&nbsp;2013年作品</p>
-                <p>素描</p>
-                <p>37×53cm</p>
-                <p>价格保密</p>
-              </div>
-            </div>
-            <div class="tp cover clearfix  margin_b20 vl hide">
-              <div class="co_bj">
-                <a target="_blank" class="btn" href="/artid/414328">
-                  <img data-src="http://img7.yingworks.com/xFk/lkD7kj2ALOuVICmvc0HoFvZe3BUj.jpg!c480"></a>
-              </div>
-              <div class="co_text">
-                <h3>
-                  <a target="_blank" href="/artid/414328" class="black">在梦的河流</a></h3>
-                <p>
-                  <a target="_blank" href="/luoqiang522" data-card-id="129414" class="btn_ash_a btn">罗蔷</a>&nbsp;-&nbsp;2015年作品</p>
-                <p>素描</p>
-                <p>53×77cm</p>
-                <p>价格保密</p>
-              </div>
-            </div>
-            <div class="tp cover clearfix  margin_b20 vl hide">
-              <div class="co_bj">
-                <a target="_blank" class="btn" href="/artid/561206">
-                  <img data-src="http://img5.yingworks.com/1USS/Fvy26Xy0t1r2DXGpfDBwKOEGxyXc.jpg!c480"></a>
-              </div>
-              <div class="co_text">
-                <h3>
-                  <a target="_blank" href="/artid/561206" class="black">黑色 No.28</a></h3>
-                <p>
-                  <a target="_blank" href="/zhanjinjuan18" data-card-id="456994" class="btn_ash_a btn">战金娟</a>&nbsp;-&nbsp;2017年作品</p>
-                <p>素描</p>
-                <p>78×78cm</p>
-                <p>售价：￥10,000.00</p>
-              </div>
-            </div>
-            <div class="tp cover clearfix  margin_b20 vl hide">
-              <div class="co_bj">
-                <a target="_blank" class="btn" href="/artid/563856">
-                  <img data-src="http://img7.yingworks.com/LTT/lscAkaV6Gbc5MhcfTjfyDW5P5yby.jpg!c480"></a>
-              </div>
-              <div class="co_text">
-                <h3>
-                  <a target="_blank" href="/artid/563856" class="black">半山</a></h3>
-                <p>
-                  <a target="_blank" href="/zhangmu" data-card-id="184133" class="btn_ash_a btn">张木</a>&nbsp;-&nbsp;2016年作品</p>
-                <p>油画</p>
-                <p>100×120cm</p>
-                <p>售价：￥30,000.00</p>
-              </div>
-            </div>
-            <div class="tp cover clearfix  margin_b20 vl hide">
-              <div class="co_bj">
-                <a target="_blank" class="btn" href="/artid/433156">
-                  <img data-src="http://img8.yingworks.com/rHi/Fs04xTon23ykPoVsmVeG3I_w4-LR.jpeg!c480"></a>
-              </div>
-              <div class="co_text">
-                <h3>
-                  <a target="_blank" href="/artid/433156" class="black">变了的风景</a></h3>
-                <p>
-                  <a target="_blank" href="/CAAET" data-card-id="106472" class="btn_ash_a btn">陈思佚</a>&nbsp;-&nbsp;2016年作品</p>
-                <p>水彩</p>
-                <p>45×39cm</p>
-                <p>售价：￥1,500.00</p>
-              </div>
-            </div>
-            <div class="tp cover clearfix  margin_b20 vl hide">
-              <div class="co_bj">
-                <a target="_blank" class="btn" href="/artid/562158">
-                  <img data-src="http://img6.yingworks.com/17l/FhQfg50w28mne9eWAk-IogqRwIxN.jpg!c480"></a>
-              </div>
-              <div class="co_text">
-                <h3>
-                  <a target="_blank" href="/artid/562158" class="black">17歲的飛機頭</a></h3>
-                <p>
-                  <a target="_blank" href="/zhipeng" data-card-id="4299" class="btn_ash_a btn">崔志鹏</a>&nbsp;-&nbsp;2017年作品</p>
-                <p>油画</p>
-                <p>50×60cm</p>
-                <p>售价：￥6,500.00</p>
-              </div>
-            </div>
-            <div class="tp cover clearfix  margin_b20 vl hide">
-              <div class="co_bj">
-                <a target="_blank" class="btn" href="/artid/563470">
-                  <img data-src="http://img5.yingworks.com/17l/FpEjcU9wX1GF9IesA9W_ifJxTxv-.jpg!c480"></a>
-              </div>
-              <div class="co_text">
-                <h3>
-                  <a target="_blank" href="/artid/563470" class="black">环</a></h3>
-                <p>
-                  <a target="_blank" href="/zhipeng" data-card-id="4299" class="btn_ash_a btn">崔志鹏</a>&nbsp;-&nbsp;2017年作品</p>
-                <p>油画</p>
-                <p>200×300cm</p>
-                <p>价格保密</p>
-              </div>
-            </div>
-            <div class="tp cover clearfix  margin_b20 vl hide">
-              <div class="co_bj">
-                <a target="_blank" class="btn" href="/artid/563285">
-                  <img data-src="http://img6.yingworks.com/zZ6/Fro6sXNZSu-46qmLHgy6jEPOFtku.jpg!c480"></a>
-              </div>
-              <div class="co_text">
-                <h3>
-                  <a target="_blank" href="/artid/563285" class="black">苍白秘密</a></h3>
-                <p>
-                  <a target="_blank" href="/zhangailin" data-card-id="138328" class="btn_ash_a btn">张爱林</a>&nbsp;-&nbsp;2017年作品</p>
-                <p>丙烯</p>
-                <p>60×50cm</p>
-                <p>价格保密</p>
-              </div>
-            </div>
-            <div class="margin_b20 more_btn_box">
-              <a data-max="0" class="btn more_btn find_more" data-close="收起" data-text="查看更多" href="javascript:;">查看更多</a></div>
-          </div>
-        </div>
+		<h4 class="padding_t5 ">				{@if user.is_verfiy > 0}
+					{@if user.role == 1}
+						认证艺术家
+						{@else if user.role == 4}
+						认证艺术机构
+					{@/if}
+				{@/if}
+				{@if user.rank && user.rank.id}
+					<em>${user.rank.name}</em>
+				{@/if}
+		</h4>
+		{@if (user.role == 1 || user.role == 4) && (user.num_work>0 || user.num_followed>0)}
+			<h5>
+				{@if user.num_work >0}
+				<span>{@if user.role == 1}作品{@else}艺术家{@/if} ${user.num_work}</span>
+				{@/if}
+				{@if user.num_followed > 0}
+				<span>粉丝 ${user.num_followed}</span>
+				{@/if}
+			</h5>
+		{@/if}
+    </div>
+    {@if !is_owner}
+    <div class="carte_next "><a class="btn gz_btn margin_left_10 do - follow " data-follow-uid="$ {
+      user.uid
+    }
+    " href="javascript: ;
+    " data-status="$ {
+      is_follow
+    }
+    "> {@if is_follow == 10}<span class="hover "><i>-</i>取消</span><span class="label "><i>-</i>取消</span>{@else if is_follow == 11}<span class="hover ">取消关注</span><span class="label ">互相关注</span>{@else}<span><i>+</i>关注</span>{@/if}</a><a href="javascript: ;
+    " class="btn gz_btn do - message " data-uname="$ {
+      user.uname
+    }
+    " data-uid="$ {
+      user.uid
+    }
+    ">发私信</a></div>
+    {@/if}
+"</script>
+  <script type="text/tmpl" id="message_tmpl">< form class = "msg_box" > <div class = "msg_top_black" > </div><div class="msg_close"><a href="javascript:;" class="close btn" title="关闭"></a > </div><div class="msg_content"><h2 class="max-width300 msg_h2 write_h2"><span class="w_icon"></span > {@
+      if _.title
+    }
+    $ {
+      _.title
+    } {@
+      else
+    }写信 {@ /
+      if
+    } < /h2><div class="max-width300 letter_warp {@if html}letter_warp_a{@/
+    if
+  }
+  ">
+	        {@if html}$${html}{@/if}
+			<div class="text_forms margin_bottom_10 "><span class="create - option {@
+    if uid
+  }
+  hide {@ /
+    if
+  }
+  ">收信人，输入姓名快速检索</span>
+                {@if uid}
+				<span class="create_alternative "><input type="hidden " autocomplete="off " name="to_uid " value="$ {
+    uid
+  }
+  "><span class="token ">
+						${uname}
+					<a class="token - close " href="javascript: ;
+  ">×</a></span></span>
+				{@/if}
+	            <input type="text " class="input_text border_green uname placeholder width_96 " autocomplete="off "></div>
+			{@if type}
+				<input type="hidden " name="type " value="$ {
+    type
+  }
+  ">			{@/if}
+	        <div class="text_forms margin_bottom_10 "><span class="create - option_tex {@
+    if msg
+  }
+  hide {@ /
+    if
+  }
+  ">私信内容</span><textarea tabindex="0 " name="message " class="input_textarea placeholder width_97 ">{@if msg}${msg}{@/if}</textarea></div><div class="phiz on "><a href="javascript: ;
+  " class="btn phiz_btn " title="表情"></a><a class="btn phiz_btn_a " href="javascript: ;
+  "><input type="file "  accept="image
+  /*" name="file" id="message_upload"></a><span class="img_name_span clearfix"><em class="name"></em><a title="删除" class="btn pic_delete" href="javascript:;">删除</a></span><a href="javascript:;" target="_blank" class="btn chat_history" style="display:none;">聊天记录</a></div><div class="text_forms margin_bottom_10"><a href="javascript:;" class="btn btn_small btn_ash reset" title="取消">取消</a><a href="javascript:;" class="btn btn_small btn_gray margin_left_10 submit" title="发送">发送</a></div></div></div></form>*/
+  </script>
+  <script type="text/html" id="more_follow_tmpl">< div class = "layer_box" > <div class = "layer_top_black" > </div><div class="layer_close"><a href="javascript:;" class="close btn" title="关闭"></a ></div><div class="layer_content"><h2 class="layer_h2 padding26">${uname}关注了${follow_num}个人</h2 > <div class = "max-width300" > <div class = "shield_list border_b_none" > <ul > {@each list as it,
+      k
+    } < li class = "clearfix" > <div class = "head clearfix" > <a href = "/${it.domain}" > <img src = "${it.head}" > </a></div > <h3 > <a href = "/${it.domain}"class = "btn t_links_black" > $ {
+      it.uname
+    } < /a>
+							{@if it.is_verfiy == 1}
+								{@if it.role == 1}
+									<a class="approve-btn-a btn approve" title="认证艺术家" href="/featured "></a>
+									{@else if it.role == 4}
+									<a class="approve - btn - b btn approve " title="认证机构" href=" / featured / org "></a>
+									{@else if it.role == 2}
+									<a class="approve - btn - c btn approve " title="收藏家" href=" / "></a>
+									{@else if it.role == 6}
+									<a class="critic btn " title="评论家"  href=" / "></a>
+								{@/if}
+							{@/if}
+							{@if it.uid != _.uid}
+								<a href="javascript: ;
+    " class="attract do - follow "  data-follow-uid="$ {
+      it.uid
+    }
+    " href="javascript: ;
+    " data-status="$ {
+      it.is_follow
+    }
+    ">
+		                        {@if it.is_follow == 10}
+									<span class="hover "><em>-</em>取消</span><span class="label "><em>-</em>取消</span>
+									{@else if it.is_follow == 11}
+									 <span class="hover ">取消关注</span><span class="label ">互相关注</span>
+									{@else}
+									<span><i>+</i>关注</span>
+								{@/if}
+								</a>
+							{@/if}
+	                    </li>					{@/each}
+                </ul></div><div class="text_forms margin_bottom_10 "><a title="关闭" class="btn btn_big btn_gray btn_close " href="javascript: ;
+    ">关闭</a></div></div></div></div>"</script>
+</head>
+  
+<body class="st-effect-2" style="">
+  <div id="st_container" class="st-container">
+    <div class="site-nav-logo">
+      <div class="st-pusher">
+        <span class="icons-logo-aa" id="site_logo"></span>
       </div>
     </div>
-    <div class="ajax_load_more">
-      <div class="text_forms discover_load">
-        <a href="javascript:;" class="btn btn_big btn_ash load-more" data-url="/chat/home" title="查看更多">查看更多</a></div>
+    <!--左边点击出现侧边栏，使用面板区域-->
+    <div class="st-menu st-effect-2">
+        <div class="site-nav">
+            <div class="site-nav-scrollable-container">
+                <ul class="site-nav-list">
+                    {% if not request.user.is_authenticated %}
+                    <li class="site-nav-list-item on">
+                        <a href="{% url 'index' %}" class="site-nav-list-item-btn home">
+                            <span class="icons"></span>首页</a>
+                    </li>
+                    <li class="site-nav-list-item">
+                        <a href="{% url 'register' %}" class="site-nav-list-item-btn reg">
+                            <span class="icons"></span>注册</a>
+                    </li>
+                    <li class="site-nav-list-item">
+                        <a href="{% url 'login' %}" class="site-nav-list-item-btn member">
+                            <span class="icons"></span>登录</a>
+                    </li>
+                    {% else %}
+                    <li class="site-nav-list-item on">
+                        <a href="{% url 'index' %}" class="site-nav-list-item-btn home">
+                            <span class="icons"></span>首页</a>
+                    </li>
+                    <li class="site-nav-list-item">
+                        <a href="{% url 'users:user_info' %}" class="site-nav-list-item-btn">
+                            <span class="icons icons-logo-head">
+                                <img src="{{ MEDIA_URL }}{{ request.user.image }}">
+                            </span>{{ user.username }}
+                        </a>
+                    </li>
+                    <li class="site-nav-list-item">
+                        <a href="{% url 'users:myfav_course' %}" class="site-nav-list-item-btn home">
+                            <span class="icons"></span>我关注的作品</a>
+                    </li>
+                    <li class="site-nav-list-item">
+                        <a href="{% url 'users:myfav_org' %}" class="site-nav-list-item-btn home">
+                            <span class="icons"></span>我关注的作者</a>
+                    </li>
+                    <li class="site-nav-list-item">
+                        <a href="{% url 'users:mymessage' %}" class="site-nav-list-item-btn home">
+                            <span class="icons"></span>我的消息</a>
+                    </li>
+                    <li class="site-nav-list-item">
+                        <a href="{% url 'logout' %}" class="site-nav-list-item-btn member ">
+                            <span class="icons"></span>退出登录</a>
+                    </li>
+                    {% endif %}
+                    <!--后期再完善-->
+                    <!--<li style="display:none;" class="site-nav-list-item">-->
+                        <!--<a href="/about" class="site-nav-list-item-btn about">-->
+                            <!--<span class="icons"></span>关于Artand</a>-->
+                    <!--</li>-->
+                    <!--<li class="site-nav-list-item">-->
+                        <!--<a href="javascript:;" class="site-nav-list-item-btn idea feedback">-->
+                            <!--<span class="icons"></span>意见反馈</a>-->
+                    <!--</li>-->
+                    <!--<li class="site-nav-list-item">-->
+                        <!--<a href="/public/lang?callback=%2F" class="site-nav-list-item-btn language">-->
+                            <!--<span class="icons"></span>Language</a>-->
+                    <!--</li>-->
+                    <!--<li class="site-nav-list-item border_none">-->
+                        <!--<a href="/mobile?callback=%2F" class="site-nav-list-item-btn APP">-->
+                            <!--<span class="icons"></span>下载APP</a>-->
+                    <!--</li>-->
+                </ul>
+            </div>
+        </div>
     </div>
-  </div>
-  <div class="right_feed ">
-    <div class="right_f_warp animation">
-      <div class="box_warp margin_b20 right_user height_129">
-        <div class="right_fix box_warp_fix">
-          <div class="name clearfix">
+    <div class="st-pusher">
+      <div class="st-content">
+        <div class="site-nav-overlay"></div>
+        <div class="discover_consumer">
+          <div class="consumer">
             <div class="head">
-              <a class="btn" href="/uid/555222" title="137****5080">
-                <img src="//head.artand.cn/455222/200"></a>
+              <a href="/uid/555222">
+                <img src="//head.artand.cn/455222/150"></a>
             </div>
-            <div class="text">
-              <div class="top">
+            <div class="name">
+              <a href="/uid/555222" class="t_links_blue">137****5080</a></div>
+          </div>
+        </div>
+        <div class="piece_content max_width_920">
+          <div class="warp">
+            <div class="discover_warp padding_b_30">
+              <div class="not_home_top">
                 <div>
-                  <a class="btn black" title="137****5080" href="/uid/555222">137****5080</a></div>
-                <p>
-                  <a class="btn href_gr" href="/uid/555222">artand.cn/uid/555222</a></p>
+                  <div class="language_c"></div>
+                </div>
+              </div>
+              <!--主页面标签／面包屑-->
+                    <div class="contact_tab tabs">
+                        {% if not request.user.is_authenticated %}
+                        <a href="{% url 'index' %}" class="btn on">作品</a>
+                        {% else %}
+                        <a href="{% url 'artists' %}" class="btn on">圈子</a>
+                        <span class="clue horizontal">－</span>
+                        <a href="{% url 'index' %}" class="btn on">作品</a>
+                        {% endif %}
+                        <span class="clue horizontal">－</span>
+                        <a href="{% url 'course:course_list' %}" class="btn">作者</a>
+                        <span class="clue horizontal">－</span>
+                        <a href="{% url 'org:teacher_list' %}" class="btn">文章</a>
+                    </div>
+            </div>
+            <div class="feed_warp clearfix" id="feed_list">
+              <div class="left_feed">
+                <div class="left_feed1">
+                    {% for user_course in courses %}
+                  <div class="box_warp margin_b20 feed_row" data-uid="131">
+                    <div class="box">
+                      <div class="tp clearfix margin_b20">
+                        <div class="head margin_right15">
+                          <a class="btn" data-card-id="131" target="_blank" href="/info">
+                            <img data-src="//head.artand.cn/131/21/200" src="//head.artand.cn/131/21/200" style="display: inline-block;"></a>
+                        </div>
+                        <div class="text">
+                          <h3>
+                            <a class="btn t_links_blue padding_r3" target="_blank" data-card-id="131" href="/info">Artand官方账号</a>
+                            <a title="认证艺术家" data-card-id="131" class="approve-btn-a btn approve" href="/verify"></a>
+                            <a href="/about/collector" data-card-id="131" class="btn cGrade grade3"></a>
+                            <span>赞了
+                              <a target="_blank" class="btn t_links_blue padding_lr3" href="/artid/567390">triggered cell</a>和另外1件作品</span></h3>
+                          <p class="padding_t9">18小时前</p></div>
+                        <div class="full opts_black_a" data-chat-type="8" data-uname="Artand官方账号" data-uid="131" data-chat-id="3832008,3793767"></div>
+                      </div>
+                      <div class="volist">
+                        <div class="tp cover vl clearfix  margin_b20">
+                          <div class="co_bj">
+                            <a target="_blank" class="btn" href="{% url 'course:course_detail' user_course.id %}">
+                              <img data-src="{{ MEDIA_URL }}{{ user_course.image }}" src="{{ MEDIA_URL }}{{ user_course.image }}" style="display: inline-block;"></a>
+                          </div>
+                          <div class="co_text">
+                            <h3>
+                              <a target="_blank" href="/artid/567390" class="black">triggered cell</a></h3>
+                            <p>
+                              <a target="_blank" href="/jujuwang" data-card-id="430766" class="btn_ash_a btn">JUJU WANG</a>&nbsp;-&nbsp;2017年作品</p>
+                            <p>装置</p>
+                            <p>300×500×700cm</p>
+                            <p>非卖品</p>
+                          </div>
+                        </div>
+                        <div class="tp cover clearfix  margin_b20 vl hide">
+                          <div class="co_bj">
+                            <a target="_blank" class="btn" href="/artid/564158">
+                              <img data-src="http://img7.yingworks.com/A0O/lvTSFNZFE-nsfwLmFcMq_uezQqbS.jpg!c480" src="http://img7.yingworks.com/A0O/lvTSFNZFE-nsfwLmFcMq_uezQqbS.jpg!c480" style="display: inline-block;"></a>
+                          </div>
+                          <div class="co_text">
+                            <h3>
+                              <a target="_blank" href="/artid/564158" class="black">空房间的独舞</a></h3>
+                            <p>
+                              <a target="_blank" href="/sico" data-card-id="138434" class="btn_ash_a btn">徐世琨</a>&nbsp;-&nbsp;2017年作品</p>
+                            <p>油画</p>
+                            <p>120×90cm</p>
+                            <p>非卖品</p>
+                          </div>
+                        </div>
+                        <div class="margin_b20 more_btn_box">
+                          <a data-max="0" class="btn more_btn find_more" data-close="收起" data-text="查看更多" href="{% url 'org:org_course' user_course.id %}">查看更多</a></div>
+                      </div>
+                    </div>
+                  </div>
+                    {% endfor %}
+                </div>
+              </div>
+              <div class="right_feed ">
+                <div class="right_f_warp animation">
+                  <div class="box_warp margin_b20 right_user height_129">
+                    <div class="right_fix box_warp_fix">
+                      <div class="name clearfix">
+                        <div class="head">
+                          <a class="btn" href="/uid/555222" title="137****5080">
+                            <img src="//head.artand.cn/455222/200"></a>
+                        </div>
+                        <div class="text">
+                          <div class="top">
+                            <div>
+                              <a class="btn black" title="137****5080" href="/uid/555222">137****5080</a></div>
+                            <p>
+                              <a class="btn href_gr" href="/uid/555222">artand.cn/uid/555222</a></p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="right_btn_f">
+                        <a class="btn btn_work" href="/write/index">
+                          <span class="icon"></span>发作品</a>
+
+                      </div>
+                    </div>
+                  </div>
+                  <div class="box_warp border_none margin_b20">
+                    <div class="meed_box">
+                      <div class="meed_a_box">
+                        <a class="btn stats_aid" target="_blank" data-aid="28" href="http://artand.cn/article/1XwW">
+                          <img src="https://shopjs.artand.cn/images/up/FmNNj86rt5LRhER0fyYGPRcj-3LE.jpeg" style="max-width:100%;width:300px;"></a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="box_warp margin_b20 height_374px">
+                    <div class="meed_box">
+                      <div class="meed_top">
+                        <p>推荐艺术家</p>
+                        <a class="more btn" href="/featured/recommend">更多</a></div>
+                      <div class="meed_row">
+                        <div class="meed_row_box clearfix border_b_d">
+                          <div class="head">
+                            <a href="/t35k0s" class="head_btn">
+                              <img data-src="//head.artand.cn/17485/200" src="//head.artand.cn/17485/200" class="head" data-card-id="17485" style="display: block;"></a>
+                          </div>
+                          <div class="text">
+                            <div class="top">
+                              <div>
+                                <a class="btn black" data-card-id="17485" href="/t35k0s">崔强</a>
+                                <a title="认证艺术家" class="approve-btn-a btn approve" href="/verify"></a>
+                              </div>
+                              <p class="padding_t15">作品
+                                <span class="red">112</span>，粉丝
+                                <span class="red">734</span></p>
+                            </div>
+                          </div>
+                          <div class="gz_r_bt"></div>
+                        </div>
+                        <div class="meed_row_box clearfix border_b_d">
+                          <div class="head">
+                            <a href="/fleurz" class="head_btn">
+                              <img data-src="//head.artand.cn/390131/200" src="//head.artand.cn/390131/200" class="head" data-card-id="390131" style="display: block;"></a>
+                          </div>
+                          <div class="text">
+                            <div class="top">
+                              <div>
+                                <a class="btn black" data-card-id="390131" href="/fleurz">张蓓蕾</a>
+                                <a title="认证艺术家" class="approve-btn-a btn approve" href="/verify"></a>
+                              </div>
+                              <p class="padding_t15">作品
+                                <span class="red">49</span>，粉丝
+                                <span class="red">301</span></p>
+                            </div>
+                          </div>
+                          <div class="gz_r_bt"></div>
+                        </div>
+                        <div class="meed_row_box clearfix border_b_d">
+                          <div class="head">
+                            <a href="/zhubaolian" class="head_btn">
+                              <img data-src="//head.artand.cn/74702/64/200" src="//head.artand.cn/74702/64/200" class="head" data-card-id="74702" style="display: block;"></a>
+                          </div>
+                          <div class="text">
+                            <div class="top">
+                              <div>
+                                <a class="btn black" data-card-id="74702" href="/zhubaolian">朱宝莲</a>
+                                <a title="认证艺术家" class="approve-btn-a btn approve" href="/verify"></a>
+                              </div>
+                              <p class="padding_t15">作品
+                                <span class="red">15</span>，粉丝
+                                <span class="red">114</span></p>
+                            </div>
+                          </div>
+                          <div class="gz_r_bt"></div>
+                        </div>
+                        <div class="meed_row_box clearfix border_b_d">
+                          <div class="head">
+                            <a href="/Wuwenlai" class="head_btn">
+                              <img data-src="//head.artand.cn/113168/46/200" src="//head.artand.cn/113168/46/200" class="head" data-card-id="113168" style="display: block;"></a>
+                          </div>
+                          <div class="text">
+                            <div class="top">
+                              <div>
+                                <a class="btn black" data-card-id="113168" href="/Wuwenlai">吴文来</a>
+                                <a title="认证艺术家" class="approve-btn-a btn approve" href="/verify"></a>
+                              </div>
+                              <p class="padding_t15">作品
+                                <span class="red">56</span>，粉丝
+                                <span class="red">365</span></p>
+                            </div>
+                          </div>
+                          <div class="gz_r_bt"></div>
+                        </div>
+                        <div class="meed_row_box clearfix border_b_d hide">
+                          <div class="head">
+                            <a href="/uid/507273" class="head_btn">
+                              <img data-src="//head.artand.cn/407273/9/200" src="http://static.artandus.com/_.gif" class="head" data-card-id="407273"></a>
+                          </div>
+                          <div class="text">
+                            <div class="top">
+                              <div>
+                                <a class="btn black" data-card-id="407273" href="/uid/507273">薛野</a>
+                                <a title="认证艺术家" class="approve-btn-a btn approve" href="/verify"></a>
+                              </div>
+                              <p class="padding_t15">作品
+                                <span class="red">61</span>，粉丝
+                                <span class="red">222</span></p>
+                            </div>
+                          </div>
+                          <div class="gz_r_bt"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="box_warp border_none margin_b20">
+                    <div class="meed_box">
+                      <div class="meed_a_box">
+                        <a class="btn stats_aid" data-aid="" href="http://artand.cn/mobile">
+                          <img src="https://shopjs.artand.cn/images/up/FiZNPUChceU4NuLre7gWElmH63dQ.jpeg" style="max-width:100%;width:300px;"></a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="box_warp margin_b20 right_share height_395" style="visibility:hidden;">
+                    <div class="two_code right_fix box_warp_fix"></div>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="right_btn_f">
-            <a class="btn btn_work" href="/write/index">
-              <span class="icon"></span>发作品</a>
-            <a target="_blank" class="btn margin_l2 btn_new" href="/uid/555222/article/write">
-              <span class="icon"></span>发文章</a>
           </div>
         </div>
-      </div>
-      <div class="box_warp border_none margin_b20">
-        <div class="meed_box">
-          <div class="meed_a_box">
-            <a class="btn stats_aid" target="_blank" data-aid="28" href="http://artand.cn/article/1XwW">
-              <img src="https://shopjs.artand.cn/images/up/FmNNj86rt5LRhER0fyYGPRcj-3LE.jpeg" style="max-width:100%;width:300px;"></a>
-          </div>
-        </div>
-      </div>
-      <div class="box_warp margin_b20 height_374px">
-        <div class="meed_box">
-          <div class="meed_top">
-            <p>推荐艺术家</p>
-            <a class="more btn" href="/featured/recommend">更多</a></div>
-          <div class="meed_row">
-            <div class="meed_row_box clearfix border_b_d">
-              <div class="head">
-                <a href="/uid/199538" class="head_btn">
-                  <img data-src="//head.artand.cn/99538/63/200" src="http://static.artandus.com/_.gif" class="head" data-card-id="99538"></a>
-              </div>
-              <div class="text">
-                <div class="top">
-                  <div>
-                    <a class="btn black" data-card-id="99538" href="/uid/199538">曹文华</a>
-                    <a title="认证艺术家" class="approve-btn-a btn approve" href="/verify"></a>
-                  </div>
-                  <p class="padding_t15">作品
-                    <span class="red">15</span>，粉丝
-                    <span class="red">182</span></p>
-                </div>
-              </div>
-              <div class="gz_r_bt"></div>
-            </div>
-            <div class="meed_row_box clearfix border_b_d">
-              <div class="head">
-                <a href="/uid/551919" class="head_btn">
-                  <img data-src="//head.artand.cn/451919/7800/200" src="http://static.artandus.com/_.gif" class="head" data-card-id="451919"></a>
-              </div>
-              <div class="text">
-                <div class="top">
-                  <div>
-                    <a class="btn black" data-card-id="451919" href="/uid/551919">陈颖</a>
-                    <a title="认证艺术家" class="approve-btn-a btn approve" href="/verify"></a>
-                  </div>
-                  <p class="padding_t15">作品
-                    <span class="red">34</span>，粉丝
-                    <span class="red">49</span></p>
-                </div>
-              </div>
-              <div class="gz_r_bt"></div>
-            </div>
-            <div class="meed_row_box clearfix border_b_d">
-              <div class="head">
-                <a href="/lengxi" class="head_btn">
-                  <img data-src="//head.artand.cn/137204/6/200" src="http://static.artandus.com/_.gif" class="head" data-card-id="137204"></a>
-              </div>
-              <div class="text">
-                <div class="top">
-                  <div>
-                    <a class="btn black" data-card-id="137204" href="/lengxi">林系</a>
-                    <a title="认证艺术家" class="approve-btn-a btn approve" href="/verify"></a>
-                  </div>
-                  <p class="padding_t15">作品
-                    <span class="red">43</span>，粉丝
-                    <span class="red">263</span></p>
-                </div>
-              </div>
-              <div class="gz_r_bt"></div>
-            </div>
-            <div class="meed_row_box clearfix border_b_d">
-              <div class="head">
-                <a href="/chaotiejun" class="head_btn">
-                  <img data-src="//head.artand.cn/63893/200" src="http://static.artandus.com/_.gif" class="head" data-card-id="63893"></a>
-              </div>
-              <div class="text">
-                <div class="top">
-                  <div>
-                    <a class="btn black" data-card-id="63893" href="/chaotiejun">晁铁军</a>
-                    <a title="认证艺术家" class="approve-btn-a btn approve" href="/verify"></a>
-                  </div>
-                  <p class="padding_t15">作品
-                    <span class="red">90</span>，粉丝
-                    <span class="red">2285</span></p>
-                </div>
-              </div>
-              <div class="gz_r_bt"></div>
-            </div>
-            <div class="meed_row_box clearfix border_b_d hide">
-              <div class="head">
-                <a href="/Dyk395" class="head_btn">
-                  <img data-src="//head.artand.cn/428400/4413/200" src="http://static.artandus.com/_.gif" class="head" data-card-id="428400"></a>
-              </div>
-              <div class="text">
-                <div class="top">
-                  <div>
-                    <a class="btn black" data-card-id="428400" href="/Dyk395">丁彦凯</a>
-                    <a title="认证艺术家" class="approve-btn-a btn approve" href="/verify"></a>
-                  </div>
-                  <p class="padding_t15">作品
-                    <span class="red">50</span>，粉丝
-                    <span class="red">1039</span></p>
-                </div>
-              </div>
-              <div class="gz_r_bt"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="box_warp border_none margin_b20">
-        <div class="meed_box">
-          <div class="meed_a_box">
-            <a class="btn stats_aid" data-aid="" href="http://artand.cn/mobile">
-              <img src="https://shopjs.artand.cn/images/up/FiZNPUChceU4NuLre7gWElmH63dQ.jpeg" style="max-width:100%;width:300px;"></a>
-          </div>
-        </div>
-      </div>
-      <div class="box_warp margin_b20 right_share height_395" style="visibility:hidden;">
-        <div class="two_code right_fix box_warp_fix"></div>
       </div>
     </div>
   </div>
-</div>
-{% endblock %}
+  <script type="text/javascript" src="//js.artand.cn/minify/chat/home_949655.js"></script>
+  <script>var _hmt = _hmt || []; (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?40e8d3233d2e7f2696cdcce5c70c60c5";
+      var s = document.getElementsByTagName("script")[0];
+      s.async = true;
+      s.parentNode.insertBefore(hm, s);
+    })();</script>
+  <div class="return_top" style="display: block;">
+    <a class="btn" href="javascript:;"></a>
+  </div>
+  <textarea tabindex="-1" style="position: absolute; top: -999px; left: 0px; right: auto; bottom: auto; border: 0px; padding: 0px; box-sizing: content-box; word-wrap: break-word; overflow: hidden; transition: none; height: 0px !important; min-height: 0px !important; width: 494px; font-family: &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, 微软雅黑, tahoma, arial, simhei, 宋体; font-size: 14px; font-weight: 400; font-style: normal; letter-spacing: 0px; text-transform: none; word-spacing: 0px; text-indent: 0px; line-height: normal;" class="autosizejs" id="autosizejs"></textarea>
+  <div id="atwho-container">
+    <div id="atwho-ground-7d1d5dde1506740459252">
+      <div class="atwho-view" id="at-view-64">
+        <ul class="atwho-view-ul"></ul>
+      </div>
+    </div>
+    <div id="atwho-ground-61aadce21506740491571">
+      <div class="atwho-view" id="at-view-64">
+        <ul class="atwho-view-ul"></ul>
+      </div>
+    </div>
+    <div id="atwho-ground-09424ee91506740500075">
+      <div class="atwho-view" id="at-view-64">
+        <ul class="atwho-view-ul"></ul>
+      </div>
+    </div>
+    <div id="atwho-ground-66f36e7d1506740500086">
+      <div class="atwho-view" id="at-view-64">
+        <ul class="atwho-view-ul"></ul>
+      </div>
+    </div>
+  </div>
+</body>
 
-
+</html>

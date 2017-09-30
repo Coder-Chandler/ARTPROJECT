@@ -8,6 +8,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/reset.css' %}" charset="utf-8">
     <link rel="stylesheet" type="text/css" href="{% static 'css/animate.css' %}" charset="utf-8">
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" charset="utf-8">
+
     {% block custom_css %}{% endblock %}
     <script src="{% static 'js/jquery.min.js' %}" type="text/javascript"></script>
     <script src="{% static 'js/jquery-migrate-1.2.1.min.js' %}" type="text/javascript"></script>
@@ -24,7 +25,7 @@
     <link rel='stylesheet' href='//static.artand.cn/style/ie_hack/ie_hack_8.css?v=399778' />
     <![endif]-->
     <meta name="format-detection" content="telephone=no" />
-    <link href="http://rss.artandus.com/rss" rel="alternate" type="application/rss+xml" title="Artand每日精选">
+
 </head>
     <script src="{% static 'js/hm.js' %}"></script>
 <body class="st-effect-2">
@@ -139,7 +140,7 @@
                         <a href="{% url 'index' %}" class="btn on">作品</a>
                         {% endif %}
                         <span class="clue horizontal">－</span>
-                        <a href="{% url 'course:course_list' %}" class="btn">艺者</a>
+                        <a href="{% url 'course:course_list' %}" class="btn">作者</a>
                         <span class="clue horizontal">－</span>
                         <a href="{% url 'org:teacher_list' %}" class="btn">文章</a>
                     </div>

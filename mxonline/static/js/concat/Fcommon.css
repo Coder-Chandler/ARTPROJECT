@@ -8423,7 +8423,7 @@ em {
 .price-no {
     width: 99px;
     height: 20px;
-    background: url(..../images/publish/price_no.png) no-repeat;
+    background: url(../images/publish/price_no.png) no-repeat;
     background-size: 99px 20px;
     font-size: 12px;
     font-weight: 300;
@@ -8438,7 +8438,7 @@ em {
 .price-no-btn {
     width: 15px;
     height: 15px;
-    background: url(..../images/publish/instruction.png) no-repeat;
+    background: url(../images/publish/instruction.png) no-repeat;
     background-size: 15px 15px;
     display: inline-block;
     margin-top: 3px;
