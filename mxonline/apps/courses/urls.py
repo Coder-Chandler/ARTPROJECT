@@ -4,7 +4,7 @@ __date__ = '2017.08.09 - 16:22'
 
 from django.conf.urls import url, include
 from .views import CourseListView, CourseDetailView, CourseInfoView, CommentView, AddCommentView, \
-                   VideoPlayView
+                   VideoPlayView, ArtistView
 urlpatterns = [
     # 课程列表页
     url(r'^list/$', CourseListView.as_view(), name='course_list'),
@@ -17,5 +17,7 @@ urlpatterns = [
 
     # 添加课程评论
     url(r'^add_comment/$', AddCommentView.as_view(), name='add_comment'),
+    # 发布作品
+    url(r'^write/$', ArtistView.as_view(), name='write'),
     url(r'^video/(?P<video_id>\d+)/$', VideoPlayView.as_view(), name='video_play')
 ]

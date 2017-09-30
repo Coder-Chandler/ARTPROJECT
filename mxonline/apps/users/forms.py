@@ -37,3 +37,15 @@ class UserInfoForm(forms.ModelForm):
     class Meta:
         model = UserProfile
         fields = ['nick_name', 'gender', 'birthday', 'address', 'mobile']
+
+
+class ArtistForm(forms.ModelForm):
+    Artist_name = forms.CharField(required=True, min_length=1)
+
+    Artist_size = forms.CharField(required=True, min_length=1)
+
+    Artist_time = forms.CharField(required=True, min_length=1)
+
+    Artist_material = forms.CharField(required=True, min_length=1)
+
+    post_time = forms.CharField(required=True, min_length=1)

@@ -18,7 +18,7 @@ from organization.models import CourseOrg, Teacher
 from courses.models import Course
 from .models import Banner
 from django.core.urlresolvers import reverse
-from users.models import Weibo, Comment
+from users.models import Artists
 
 
 class CustomBackend(ModelBackend):
@@ -363,33 +363,11 @@ def page_error(request):
 
 
 class IndexUsersView(View):
-    # 网站首页
+    # 圈子首页
     def get(self, request):
         courses = Course.objects.all().order_by("add_time")
         return render(request, 'user_index.html', {
             'courses': courses,
-        })
-
-    def add_weibo(self, request):
-        errors = []
-
-        # Creates a new weibo if it is present as a parameter in the request
-
-        if not "text" in request.POST or not request.POST["text"]:
-
-            errors.append("You must enter text in a weibo.")
-
-        else:
-
-            new_weibo = Weibo(weibo_content=request.POST["text"], user=request.user)
-
-            new_weibo.save()
-
-            weibos = Weibo.objects.filter(user=request.user).order_by("-post_time")
-
-        return render(request, "user_index.html", {
-            "weibos": weibos,
-            "errors": errors
         })
 
 
@@ -397,9 +375,9 @@ def show_weibos(request):
 
     # Shows home page with weibos of user
 
-    weibos = Weibo.objects.filter(user=request.user).order_by("-post_time")
+    weibos = Artists.objects.filter(user=request.user).order_by("-post_time")
 
-    return render(request, "user_index.html", {"weibos" : weibos})
+    return render(request, "user_index.html", {"weibos":weibos})
 
 
 

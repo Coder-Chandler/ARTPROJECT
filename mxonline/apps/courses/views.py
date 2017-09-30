@@ -8,6 +8,7 @@ from django.db.models import Q
 from .models import Course, CourseResource, Video
 from operation.models import UserFavorite, CourseComments, UserCourse
 from utils.mixin_utils import LoginRequiredMixin
+from users.models import Artists
 
 
 class CourseListView(View):
@@ -177,3 +178,10 @@ class VideoPlayView(View):
             'relate_courses': relate_courses,
             'video': video
         })
+
+
+class ArtistView(View):
+    def post(self, request):
+        if not request.user.is_authenticated():
+            # 判断用户登录状态
+            return HttpResponse('{"status":"fail", "msg":"用户未登录"}', content_type='application/json')
